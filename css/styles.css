@@ -726,7 +726,7 @@ a { color: inherit; }
 }
 
 .slide-inner-video .slide-num {
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .slide-title {
@@ -828,7 +828,7 @@ a { color: inherit; }
 
 .edition-expand {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   bottom: clamp(20px, 4vh, 40px);
   right: var(--gutter);
   width: 46px;
@@ -938,9 +938,6 @@ a { color: inherit; }
   inset: 0;
   pointer-events: none;
   background-color: #000;
-  background-image: var(--media-thumb, none);
-  background-size: cover;
-  background-position: center;
   width: 100% !important;
   height: 100% !important;
   border: 0;
@@ -951,6 +948,25 @@ a { color: inherit; }
   inset: 0;
   width: 100% !important;
   height: 100% !important;
+}
+
+/* Miniatura (poster) exibida enquanto o vídeo está pausado/não iniciado.
+   Fica por cima do player (mas atrás do badge/controles) e some sozinha
+   quando o vídeo toca pela 1ª vez, via a classe .is-ready que o
+   ytplayer.js adiciona no player nesse momento. */
+.locked-player-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--duration-normal) var(--ease-sport);
+}
+
+.locked-player-yt.is-ready ~ .locked-player-poster {
+  opacity: 0;
 }
 
 .locked-player-controls {
