@@ -704,5 +704,73 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="../js/ytplayer.js"></script>
 <script src="../js/main.js"></script>
+
+<!-- ============ SELO KUPIM DIGITAL ============ -->
+<div id="kupim-badge-wrap">
+  <a
+    id="kupim-badge"
+    href="https://www.linkedin.com/in/allanlauzid/"
+    target="_blank"
+    rel="noopener"
+    aria-label="Uma criação de Kupim Digital. Clique para falar conosco."
+  >
+    <span class="k-logo-spacer" aria-hidden="true"></span>
+    <span class="badge-text">© <span class="kupim-year">2026</span> <b>Jefferson Lôbo</b>. Todos os direitos reservados.<br>Uma criação de <b>Kupim Digital</b>.</span>
+  </a>
+  <span class="k-logo-wrap" aria-hidden="true">
+    <svg viewBox="0 0 80.339996 68.730003" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="k-fill-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop id="k-stop-1" offset="0%" stop-color="#eff3f8"/>
+          <stop id="k-stop-2" offset="100%" stop-color="#eff3f8"/>
+        </linearGradient>
+      </defs>
+      <path d="m 13.66,16.47 c 7.19,-0.43 14.44,-0.34 21.63,-0.04 -0.24,8.15 0,16.3 -0.14,24.45 C 44.4,32.62 53.53,24.22 62.99,16.19 71.94,16.35 80.9,16.03 89.85,16.38 83.67,21.31 78.35,27.2 72.22,32.19 68.1,35.71 64.48,39.82 60.09,43 71.83,56.41 82.59,70.68 93.98,84.4 91.4,85.16 88.68,84.79 86.03,84.85 79.75,84.76 73.47,85.02 67.2,84.71 59.87,75.36 52.54,66.01 44.97,56.86 c -3.63,2.59 -6.28,6.29 -9.84,9 0.14,6.27 -0.03,12.54 0.12,18.81 -7.19,0.24 -14.43,0.42 -21.61,-0.1 0.34,-22.69 0.3,-45.41 0.02,-68.1 z" transform="translate(-13.640002,-16.175853)" fill="url(#k-fill-gradient)"/>
+    </svg>
+  </span>
+</div>
+<!-- ============ FIM DO SELO ============ -->
+
+<script>
+  // Selo Kupim Digital — ano dinâmico, sincroniza o deslocamento do K
+  // com a largura da pílula e trata o toque no mobile.
+  (function(){
+    var wrap = document.getElementById('kupim-badge-wrap');
+    var badge = document.getElementById('kupim-badge');
+    if (!wrap || !badge) return;
+
+    document.querySelectorAll('.kupim-year').forEach(function(el){
+      el.textContent = new Date().getFullYear();
+    });
+
+    function updateShift(){
+      var full = badge.scrollWidth;
+      wrap.style.setProperty('--k-shift', Math.max(full - 44, 0) + 'px');
+    }
+    updateShift();
+    window.addEventListener('load', updateShift);
+    window.addEventListener('resize', updateShift);
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(updateShift);
+    }
+    requestAnimationFrame(function(){ requestAnimationFrame(updateShift); });
+
+    var isTouch = matchMedia('(hover: none)').matches;
+    if(!isTouch) return;
+
+    badge.addEventListener('click', function(e){
+      if(!wrap.classList.contains('is-open')){
+        e.preventDefault();
+        wrap.classList.add('is-open');
+        document.addEventListener('click', function closeOnce(ev){
+          if(!wrap.contains(ev.target)){
+            wrap.classList.remove('is-open');
+            document.removeEventListener('click', closeOnce);
+          }
+        });
+      }
+    });
+  })();
+</script>
 </body>
 </html>
