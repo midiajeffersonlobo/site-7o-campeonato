@@ -486,8 +486,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ytTarget.id = uniqueId;
 
       // Thumbnail do YouTube como pôster, visível enquanto o vídeo está
-      // pausado (evita a tela preta antes do primeiro play).
-      ytTarget.style.backgroundImage = `url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')`;
+      // pausado (evita a tela preta antes do primeiro play). Setamos a
+      // variável CSS no CONTAINER (que nunca é substituído) e não na div
+      // .locked-player-yt, porque a API do YouTube substitui essa div por
+      // um <iframe> na hora que o player fica pronto — qualquer estilo
+      // inline aplicado direto nela se perde nesse momento.
+      container.style.setProperty('--media-thumb', `url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')`);
 
       const player = new LockedYTPlayer({
         elementId: uniqueId,

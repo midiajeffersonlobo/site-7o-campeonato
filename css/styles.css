@@ -862,7 +862,7 @@ a { color: inherit; }
    pilarboxa (barras pretas) dentro do frame. Damos um leve zoom pra
    cobrir o frame por completo, cortando as bordas ao invés de deixar
    tarja preta — o frame já tem overflow:hidden, então o excesso some. */
-#proposalVideoYT iframe {
+#proposalVideoYT {
   transform: scale(1.35);
   transform-origin: center center;
 }
@@ -929,32 +929,28 @@ a { color: inherit; }
   aspect-ratio: auto;
 }
 
-.locked-player:fullscreen .locked-player-yt,
-.locked-player:-webkit-full-screen .locked-player-yt {
-  inset: 0;
-}
-
-.locked-player:fullscreen .locked-player-yt iframe,
-.locked-player:-webkit-full-screen .locked-player-yt iframe {
-  width: 100%;
-  height: 100%;
-}
-
+/* IMPORTANTE: a API do YouTube substitui a div-alvo por um <iframe> que
+   herda a MESMA classe/id da div original — o iframe É o .locked-player-yt,
+   não um filho dele. Por isso as regras abaixo miram .locked-player-yt
+   diretamente (nunca ".locked-player-yt iframe", que nunca bate com nada). */
 .locked-player-yt {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-color: #000;
+  background-image: var(--media-thumb, none);
   background-size: cover;
   background-position: center;
-}
-
-.locked-player-yt iframe {
-  position: absolute;
-  inset: 0;
   width: 100% !important;
   height: 100% !important;
   border: 0;
+}
+
+.locked-player:fullscreen .locked-player-yt,
+.locked-player:-webkit-full-screen .locked-player-yt {
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .locked-player-controls {
