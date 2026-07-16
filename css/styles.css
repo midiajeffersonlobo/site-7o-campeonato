@@ -40,6 +40,7 @@
   --gutter: clamp(20px, 5vw, 72px);
 
   --ease-sport: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-hero: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 160ms;
   --duration-normal: 320ms;
   --duration-slow: 700ms;
@@ -88,6 +89,19 @@ a { color: inherit; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* A entrada do hero (vídeo -> site) é uma transição única e proposital
+     de abertura, não uma animação decorativa repetida — mantém a duração
+     normal mesmo com "reduzir movimento" ativado, senão o site "pula"
+     direto pro estado final de forma abrupta. */
+  .hero-video-wrap,
+  .hero-scrim,
+  .hero-content,
+  .hero-scroll-hint,
+  .site-header,
+  .action-dock {
+    transition-duration: var(--duration-hero) !important;
+  }
 }
 
 .container {
@@ -135,8 +149,8 @@ a { color: inherit; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  transition: filter var(--duration-hero) var(--ease-sport),
-              transform var(--duration-hero) var(--ease-sport);
+  transition: filter var(--duration-hero) var(--ease-hero),
+              transform var(--duration-hero) var(--ease-hero);
   transform: scale(1.02);
 }
 
@@ -167,7 +181,7 @@ a { color: inherit; }
   background:
     linear-gradient(180deg, rgba(0,25,78,0.75) 0%, rgba(0,25,78,0.15) 28%, rgba(0,25,78,0.25) 60%, rgba(0,25,78,0.92) 100%);
   opacity: 0;
-  transition: opacity var(--duration-hero) var(--ease-sport);
+  transition: opacity var(--duration-hero) var(--ease-hero);
 }
 
 .hero-scrim.is-visible { opacity: 1; }
@@ -191,8 +205,8 @@ a { color: inherit; }
   padding: var(--space-xl) var(--gutter) var(--space-2xl);
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity var(--duration-hero) var(--ease-sport) 200ms,
-              transform var(--duration-hero) var(--ease-sport) 200ms;
+  transition: opacity var(--duration-hero) var(--ease-hero) 200ms,
+              transform var(--duration-hero) var(--ease-hero) 200ms;
 }
 
 .hero-content.is-visible {
@@ -330,8 +344,8 @@ a { color: inherit; }
   background: linear-gradient(180deg, rgba(0,25,78,0.88) 0%, rgba(0,25,78,0) 100%);
   opacity: 0;
   transform: translateY(-16px);
-  transition: opacity var(--duration-hero) var(--ease-sport),
-              transform var(--duration-hero) var(--ease-sport);
+  transition: opacity var(--duration-hero) var(--ease-hero),
+              transform var(--duration-hero) var(--ease-hero);
   pointer-events: none;
 }
 
@@ -370,7 +384,7 @@ a { color: inherit; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.85rem;
+  font-size: 0.9792rem;
   color: var(--white);
   line-height: 1.2;
 }
@@ -398,8 +412,8 @@ a { color: inherit; }
   backdrop-filter: blur(10px);
   border: 1px solid rgba(230,192,9,0.35);
   opacity: 0;
-  transition: opacity var(--duration-hero) var(--ease-sport),
-              transform var(--duration-hero) var(--ease-sport);
+  transition: opacity var(--duration-hero) var(--ease-hero),
+              transform var(--duration-hero) var(--ease-hero);
   max-width: calc(100vw - 24px);
   overflow-x: auto;
   scrollbar-width: none;
