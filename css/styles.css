@@ -303,13 +303,11 @@ a { color: inherit; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
-  background: rgba(0,25,78,0.35);
-  border: 1px solid rgba(249,248,246,0.25);
-  border-radius: 100px;
-  padding: 0.5em 1em;
+  background: none;
+  border: none;
+  padding: 0.4em;
   opacity: 0.7;
   transition: opacity var(--duration-fast) var(--ease-sport),
-              background var(--duration-fast) var(--ease-sport),
               color var(--duration-fast) var(--ease-sport);
 }
 
@@ -319,7 +317,6 @@ a { color: inherit; }
 .hero-skip:focus-visible {
   opacity: 1;
   color: var(--white);
-  background: rgba(0,25,78,0.6);
 }
 
 .hero-skip.is-hidden,
@@ -655,13 +652,17 @@ a { color: inherit; }
 .slide-bg-top { background-position: center top; opacity: 0.7; }
 
 /* Slide 12: reforço extra de sombra do lado esquerdo (onde fica o texto),
-   além do gradiente vertical padrão do ::after — some por completo em 1/3
-   da largura do background. */
+   além do gradiente vertical padrão do ::after — some por completo na
+   metade da largura do background. Também alinha o topo da imagem com a
+   base do cabeçalho e sobe 10px pra esconder essa margem atrás dele. */
+.slide-bg-fade-left {
+  background-position: center -40px;
+}
 .slide-bg-fade-left::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0,25,78,0.85) 0%, rgba(0,25,78,0) 33%);
+  background: linear-gradient(100deg, rgba(0,25,78,1) 50%, rgba(0,25,78,0.6) 60%);
 }
 
 .slide-bg-logos {
@@ -723,6 +724,16 @@ a { color: inherit; }
   line-height: 0.8;
   color: rgba(230,192,9,0.385);
   margin-bottom: -0.15em;
+}
+
+/* Esse slide tem conteúdo mais alto por causa do vídeo. Como .slide é
+   ancorado no fundo (align-items:flex-end) com overflow:hidden, o topo
+   do bloco ficava cortado atrás do cabeçalho — aumentar margin-top no
+   número não resolvia, só empurrava mais o topo pra fora do corte.
+   A correção real é reduzir a altura total do bloco (menos padding
+   embaixo, vídeo um pouco menor), o que libera espaço e revela o topo. */
+.slide-inner-video {
+  padding-bottom: 28px;
 }
 
 .slide-inner-video .slide-num {
@@ -852,7 +863,7 @@ a { color: inherit; }
 .slide-video-frame {
   margin-top: var(--space-md);
   width: 100%;
-  max-width: 1100px;
+  max-width: 880px;
   border: 2px solid var(--yellow-500);
   clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
   background: #000;
@@ -886,6 +897,20 @@ a { color: inherit; }
 }
 .deck-nav:hover, .deck-nav:focus-visible { background: var(--yellow-500); color: var(--navy-950); }
 .deck-nav svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* Área de clique 3x maior que o ícone (60px), sem alterar o tamanho
+   visual do botão — pseudo-elemento invisível "estoura" pra fora da
+   borda do botão, mas clicar nele ainda conta como clicar no botão,
+   já que é um descendente dele. */
+.deck-nav::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+}
 .deck-prev { left: clamp(8px, 2vw, 24px); }
 .deck-next { right: clamp(8px, 2vw, 24px); }
 
@@ -905,12 +930,27 @@ a { color: inherit; }
 }
 
 .deck-dot {
+  position: relative;
   width: 26px;
   height: 4px;
   background: rgba(249,248,246,0.3);
+  cursor: pointer;
   transition: background var(--duration-fast);
 }
 .deck-dot.is-active { background: var(--yellow-400); }
+
+/* Área de clique bem maior que o tracinho visível (que fica só 4px de
+   altura) — pseudo-elemento invisível estoura pra fora do dot, mas
+   clicar nele ainda conta como clicar no dot. */
+.deck-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+}
 
 /* ---- Player de vídeo travado (controles customizados) ---- */
 
@@ -957,16 +997,54 @@ a { color: inherit; }
 .locked-player-poster {
   position: absolute;
   inset: 0;
+  z-index: 2;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none;
+  cursor: pointer;
   opacity: 1;
   transition: opacity var(--duration-normal) var(--ease-sport);
 }
 
-.locked-player-yt.is-ready ~ .locked-player-poster {
+.locked-player-yt.is-ready ~ .locked-player-poster,
+.locked-player-yt.is-ready ~ .locked-player-poster-play {
   opacity: 0;
+  pointer-events: none;
+}
+
+.locked-player-poster-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0,25,78,0.75);
+  border: 2px solid var(--yellow-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity var(--duration-normal) var(--ease-sport),
+              background var(--duration-fast) var(--ease-sport);
+}
+
+.locked-player-poster-play svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--white);
+  margin-left: 3px; /* otimiza o centro visual do triângulo de play */
+}
+
+.locked-player:hover .locked-player-poster-play,
+.locked-player-poster-play:hover {
+  background: var(--yellow-500);
+}
+.locked-player:hover .locked-player-poster-play svg,
+.locked-player-poster-play:hover svg {
+  fill: var(--navy-950);
 }
 
 .locked-player-controls {
@@ -1967,6 +2045,11 @@ a { color: inherit; }
   right:0;
   z-index:9999;
   height:64px;
+}
+/* Só aparece no menu principal (hero) — some quando qualquer modal
+   (Proposta, Documento, Mídia, Estrutura, Contato, etc.) está aberto. */
+body.has-open-modal #kupim-badge-wrap {
+  display: none;
 }
 #kupim-badge{
   position:absolute;

@@ -52,6 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (heroSkipBtn) heroSkipBtn.addEventListener('click', revealSite);
   if (heroSkipZone) heroSkipZone.addEventListener('click', revealSite);
 
+  // Tecla espaço pula o vídeo do hero (só enquanto ele ainda não foi revelado).
+  document.addEventListener('keydown', (e) => {
+    if (heroRevealed) return;
+    if (e.code === 'Space' || e.key === ' ') {
+      e.preventDefault(); // evita rolar a página
+      revealSite();
+    }
+  });
+
   /* ------------------------------------------------------------------------
      2) MODAIS — abrir / fechar
      ------------------------------------------------------------------------ */
@@ -66,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lastFocusedEl = document.activeElement;
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('has-open-modal');
     activeModalId = id;
 
     if (id === 'modal-proposta') { initProposalDeck(); flashDeckNav(); }
@@ -81,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!modal) return;
     modal.classList.remove('is-open');
     document.body.style.overflow = '';
+    document.body.classList.remove('has-open-modal');
     activeModalId = null;
 
     // pausa qualquer vídeo travado que esteja tocando dentro do modal fechado
@@ -230,12 +241,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.querySelector('[data-deck-prev]').addEventListener('click', () => { goToSlide(deckIndex - 1); flashDeckNav(); });
-  document.querySelector('[data-deck-next]').addEventListener('click', () => { goToSlide(deckIndex + 1); flashDeckNav(); });
+  // Sempre "funcionam": nos extremos, dão a volta pro outro lado em vez de
+  // travar sem fazer nada.
+  function goToSlideLoop(i) {
+    goToSlide((i + slides.length) % slides.length);
+  }
+
+  document.querySelector('[data-deck-prev]').addEventListener('click', () => { goToSlideLoop(deckIndex - 1); flashDeckNav(); });
+  document.querySelector('[data-deck-next]').addEventListener('click', () => { goToSlideLoop(deckIndex + 1); flashDeckNav(); });
 
   document.getElementById('modal-proposta').addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') goToSlide(deckIndex + 1);
-    if (e.key === 'ArrowLeft') goToSlide(deckIndex - 1);
+    if (e.key === 'ArrowRight') goToSlideLoop(deckIndex + 1);
+    if (e.key === 'ArrowLeft') goToSlideLoop(deckIndex - 1);
   });
 
   // swipe touch
@@ -499,6 +516,15 @@ document.addEventListener('DOMContentLoaded', () => {
       poster.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
       ytTarget.insertAdjacentElement('afterend', poster);
 
+      // Ícone de play centralizado sobre a miniatura — clicar nela (ou no
+      // ícone) inicia o vídeo, igual a qualquer player de vídeo comum.
+      const posterPlay = document.createElement('button');
+      posterPlay.type = 'button';
+      posterPlay.className = 'locked-player-poster-play';
+      posterPlay.setAttribute('aria-label', 'Reproduzir vídeo');
+      posterPlay.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      poster.insertAdjacentElement('afterend', posterPlay);
+
       const player = new LockedYTPlayer({
         elementId: uniqueId,
         videoId,
@@ -507,6 +533,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ambient: false,
         loop: false,
       });
+
+      poster.addEventListener('click', () => player.play());
+      posterPlay.addEventListener('click', () => player.play());
 
       wireLockedPlayerControls(container, player);
     });
