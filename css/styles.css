@@ -654,6 +654,16 @@ a { color: inherit; }
 .slide-bg-zoom { background-size: 130%; background-position: center 15%; }
 .slide-bg-top { background-position: center top; opacity: 0.7; }
 
+/* Slide 12: reforço extra de sombra do lado esquerdo (onde fica o texto),
+   além do gradiente vertical padrão do ::after — some por completo em 1/3
+   da largura do background. */
+.slide-bg-fade-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,25,78,0.85) 0%, rgba(0,25,78,0) 33%);
+}
+
 .slide-bg-logos {
   position: absolute;
   inset: 0;
@@ -713,6 +723,10 @@ a { color: inherit; }
   line-height: 0.8;
   color: rgba(230,192,9,0.385);
   margin-bottom: -0.15em;
+}
+
+.slide-inner-video .slide-num {
+  margin-top: 10px;
 }
 
 .slide-title {
@@ -844,6 +858,15 @@ a { color: inherit; }
   background: #000;
 }
 
+/* O vídeo desse trecho não é exatamente 16:9, então o player do YouTube
+   pilarboxa (barras pretas) dentro do frame. Damos um leve zoom pra
+   cobrir o frame por completo, cortando as bordas ao invés de deixar
+   tarja preta — o frame já tem overflow:hidden, então o excesso some. */
+#proposalVideoYT iframe {
+  transform: scale(1.35);
+  transform-origin: center center;
+}
+
 /* Navegação do deck */
 .deck-nav {
   position: absolute;
@@ -921,6 +944,9 @@ a { color: inherit; }
   position: absolute;
   inset: 0;
   pointer-events: none;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
 }
 
 .locked-player-yt iframe {

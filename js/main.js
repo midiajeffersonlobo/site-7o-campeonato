@@ -485,6 +485,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const uniqueId = `media-yt-${i}`;
       ytTarget.id = uniqueId;
 
+      // Thumbnail do YouTube como pôster, visível enquanto o vídeo está
+      // pausado (evita a tela preta antes do primeiro play).
+      ytTarget.style.backgroundImage = `url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')`;
+
       const player = new LockedYTPlayer({
         elementId: uniqueId,
         videoId,
