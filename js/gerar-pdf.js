@@ -300,6 +300,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const BOUNCE_DURATION_MAX = 900;
   const BOUNCE_DURATION_MIN = 250;
 
+  // A cada quicada, sorteia uma inclinação diferente (sempre volta ao
+  // centro no fim do ciclo, então nunca "cai" pra um lado).
+  const BOUNCE_VARIANTS = ['kettlebellBounceA', 'kettlebellBounceB', 'kettlebellBounceC', 'kettlebellBounceD'];
+
+  if (progressKettlebellImg) {
+    let lastBounceVariant = null;
+    const pickRandomBounce = () => {
+      let variant = BOUNCE_VARIANTS[Math.floor(Math.random() * BOUNCE_VARIANTS.length)];
+      if (variant === lastBounceVariant) {
+        variant = BOUNCE_VARIANTS[(BOUNCE_VARIANTS.indexOf(variant) + 1) % BOUNCE_VARIANTS.length];
+      }
+      lastBounceVariant = variant;
+      progressKettlebellImg.style.animationName = variant;
+    };
+    pickRandomBounce();
+    progressKettlebellImg.addEventListener('animationiteration', pickRandomBounce);
+  }
+
   function setProgress(percent) {
     const clamped = Math.max(0, Math.min(100, percent));
     const offset = CIRCUMFERENCE * (1 - clamped / 100);

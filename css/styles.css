@@ -1869,12 +1869,28 @@ a { color: inherit; }
   width: 42%;
   height: 42%;
   opacity: 0.9;
-  animation: kettlebellBounce 900ms ease-in-out infinite;
+  transform-origin: 50% 88%;
+  animation: kettlebellBounceA 900ms ease-in-out infinite;
 }
 
-@keyframes kettlebellBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14%); }
+/* Quatro variações de quicada, cada uma pendendo pra um lado diferente
+   (sempre voltando ao centro no fim do ciclo, sem acumular rotação).
+   O JS sorteia uma delas a cada nova quicada pra dar um ar mais orgânico. */
+@keyframes kettlebellBounceA {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14%) rotate(-7deg); }
+}
+@keyframes kettlebellBounceB {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14%) rotate(6deg); }
+}
+@keyframes kettlebellBounceC {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14%) rotate(-3deg); }
+}
+@keyframes kettlebellBounceD {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14%) rotate(9deg); }
 }
 
 /* Indicador de atividade (não é animação decorativa): mantém a quicada
