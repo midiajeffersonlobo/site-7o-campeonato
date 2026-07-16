@@ -300,22 +300,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const BOUNCE_DURATION_MAX = 900;
   const BOUNCE_DURATION_MIN = 250;
 
-  // A cada quicada, sorteia uma inclinação diferente (sempre volta ao
-  // centro no fim do ciclo, então nunca "cai" pra um lado).
-  const BOUNCE_VARIANTS = ['kettlebellBounceA', 'kettlebellBounceB', 'kettlebellBounceC', 'kettlebellBounceD'];
+  // Quicada com movimento aleatório: cada ciclo sorteia sua própria altura
+  // e inclinação (dentro de faixas naturais), sempre voltando ao centro no
+  // fim do ciclo, então nunca acumula rotação nem "cai" pra um lado.
+  // Usa a Web Animations API (não CSS @keyframes) pra poder gerar valores
+  // diferentes a cada rodada — e, de brinde, isso já ignora naturalmente
+  // a preferência de "reduzir movimento" do sistema, o que é intencional
+  // aqui: é um indicador de atividade, não uma animação decorativa.
+  let currentBouncePercent = 0;
+  let kettlebellStopped = false;
 
-  if (progressKettlebellImg) {
-    let lastBounceVariant = null;
-    const pickRandomBounce = () => {
-      let variant = BOUNCE_VARIANTS[Math.floor(Math.random() * BOUNCE_VARIANTS.length)];
-      if (variant === lastBounceVariant) {
-        variant = BOUNCE_VARIANTS[(BOUNCE_VARIANTS.indexOf(variant) + 1) % BOUNCE_VARIANTS.length];
-      }
-      lastBounceVariant = variant;
-      progressKettlebellImg.style.animationName = variant;
-    };
-    pickRandomBounce();
-    progressKettlebellImg.addEventListener('animationiteration', pickRandomBounce);
+  function randomBetween(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function runKettlebellBounce() {
+    if (!progressKettlebellImg || kettlebellStopped) return;
+
+    const duration = BOUNCE_DURATION_MAX
+      - ((BOUNCE_DURATION_MAX - BOUNCE_DURATION_MIN) * (currentBouncePercent / 100));
+
+    const height = randomBetween(10, 18); // % de translateY
+    const tilt = randomBetween(-9, 9); // graus, positivo ou negativo
+    const tiltMid = tilt * randomBetween(0.5, 0.85); // leve inclinação já na subida
+
+    const anim = progressKettlebellImg.animate(
+      [
+        { transform: 'translateY(0) rotate(0deg)' },
+        { transform: `translateY(-${(height * 0.55).toFixed(1)}%) rotate(${tiltMid.toFixed(1)}deg)` },
+        { transform: `translateY(-${height.toFixed(1)}%) rotate(${tilt.toFixed(1)}deg)` },
+        { transform: 'translateY(0) rotate(0deg)' },
+      ],
+      { duration: Math.round(duration), easing: 'ease-in-out' },
+    );
+
+    anim.onfinish = runKettlebellBounce;
   }
 
   function setProgress(percent) {
@@ -323,14 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const offset = CIRCUMFERENCE * (1 - clamped / 100);
     progressRingFill.style.strokeDashoffset = String(offset);
     progressPercent.textContent = `${Math.round(clamped)}%`;
-
-    if (progressKettlebellImg) {
-      const duration = BOUNCE_DURATION_MAX
-        - ((BOUNCE_DURATION_MAX - BOUNCE_DURATION_MIN) * (clamped / 100));
-      // usa !important pra vencer a regra global de "reduzir movimento"
-      // (o kettlebell é um indicador de atividade, não decoração).
-      progressKettlebellImg.style.setProperty('animation-duration', `${Math.round(duration)}ms`, 'important');
-    }
+    currentBouncePercent = clamped;
   }
 
   function openProgressModal() {
@@ -340,11 +352,14 @@ document.addEventListener('DOMContentLoaded', () => {
     progressCloseBtn.style.display = 'none';
     progressModal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    kettlebellStopped = false;
+    runKettlebellBounce();
   }
 
   function closeProgressModal() {
     progressModal.classList.remove('is-open');
     document.body.style.overflow = '';
+    kettlebellStopped = true;
   }
 
   function showProgressError(message) {

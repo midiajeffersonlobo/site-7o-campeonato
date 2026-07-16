@@ -1870,37 +1870,8 @@ a { color: inherit; }
   height: 42%;
   opacity: 0.9;
   transform-origin: 50% 88%;
-  animation: kettlebellBounceA 900ms ease-in-out infinite;
-}
-
-/* Quatro variações de quicada, cada uma pendendo pra um lado diferente
-   (sempre voltando ao centro no fim do ciclo, sem acumular rotação).
-   O JS sorteia uma delas a cada nova quicada pra dar um ar mais orgânico. */
-@keyframes kettlebellBounceA {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14%) rotate(-7deg); }
-}
-@keyframes kettlebellBounceB {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14%) rotate(6deg); }
-}
-@keyframes kettlebellBounceC {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14%) rotate(-3deg); }
-}
-@keyframes kettlebellBounceD {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14%) rotate(9deg); }
-}
-
-/* Indicador de atividade (não é animação decorativa): mantém a quicada
-   mesmo com "reduzir movimento" ativado, pra deixar claro que o processo
-   de geração do PDF ainda está em andamento. */
-@media (prefers-reduced-motion: reduce) {
-  .progress-kettlebell img {
-    animation-duration: 900ms !important;
-    animation-iteration-count: infinite !important;
-  }
+  /* a quicada em si é gerada dinamicamente via JS (Web Animations API),
+     com ângulo e altura sorteados a cada ciclo — ver js/gerar-pdf.js */
 }
 
 .progress-percent {
