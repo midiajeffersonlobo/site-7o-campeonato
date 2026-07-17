@@ -321,7 +321,42 @@ a { color: inherit; }
 
 .hero-skip.is-hidden,
 .hero-skip-zone.is-hidden {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-spacebar-hint {
+  position: absolute;
+  top: calc(var(--space-md) + 36px);
+  right: calc(var(--gutter) + 4px);
+  z-index: 4;
+  width: 90px;
+  height: 32px; /* Garante altura caso o aspect-ratio falhe */
+  background-color: transparent;
+  background-image: url('../assets/icons/spritesheet_spacebar.png');
+  /* Usa pixels absolutos (90px de largura * 26 frames = 2340px) para evitar bugs de porcentagem */
+  background-size: 2340px 100%;
+  background-repeat: no-repeat;
+  /* Transforma a imagem preta em branco acinzentado */
+  filter: invert(80%) sepia(10%) saturate(150%) hue-rotate(180deg) brightness(90%) contrast(90%);
+  opacity: 0.7;
+  /* !important ignora a restrição de prefers-reduced-motion do Windows/Mac */
+  animation: play-spacebar 0.5s steps(26) infinite !important;
+  transition: opacity var(--duration-fast) var(--ease-sport);
+  pointer-events: none;
+}
+
+@keyframes play-spacebar {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -2340px 0;
+  }
+}
+
+.hero-skip.is-hidden + .hero-spacebar-hint {
+  opacity: 0;
 }
 
 /* ==========================================================================
@@ -840,7 +875,7 @@ a { color: inherit; }
 .edition-expand {
   position: absolute;
   z-index: 3;
-  bottom: clamp(20px, 4vh, 40px);
+  top: clamp(20px, 4vh, 40px);
   right: var(--gutter);
   width: 46px;
   height: 46px;
@@ -854,6 +889,31 @@ a { color: inherit; }
   transition: background var(--duration-fast), color var(--duration-fast);
 }
 .edition-expand:hover, .edition-expand:focus-visible {
+  background: var(--yellow-500);
+  color: var(--navy-950);
+}
+
+/* Mesmo ícone de expandir, agora também no canto superior direito de
+   cada foto da Mídia. */
+.media-expand {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0,25,78,0.65);
+  border: 2px solid var(--yellow-500);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+.media-expand svg { width: 18px; height: 18px; fill: currentColor; }
+.media-expand:hover, .media-expand:focus-visible {
   background: var(--yellow-500);
   color: var(--navy-950);
 }

@@ -129,6 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (openLightbox) return;
     if (e.key === 'Escape' && activeModalId) closeModal(activeModalId);
+
+    // Setas esquerda/direita navegam o deck da Proposta Resumida sempre
+    // que ele estiver aberto, não importa onde o foco esteja na página.
+    if (activeModalId === 'modal-proposta') {
+      if (e.key === 'ArrowRight') { e.preventDefault(); goToSlideLoop(deckIndex + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goToSlideLoop(deckIndex - 1); }
+    }
   });
 
   /* ------------------------------------------------------------------------
@@ -174,6 +181,22 @@ document.addEventListener('DOMContentLoaded', () => {
           open(i);
         }
       });
+
+      // Ícone de expandir no canto superior direito da foto (mesmo padrão
+      // usado no slide 11 da Proposta Resumida).
+      const item = img.closest('.media-item');
+      if (item && !item.querySelector('.media-expand')) {
+        const expandBtn = document.createElement('button');
+        expandBtn.type = 'button';
+        expandBtn.className = 'media-expand';
+        expandBtn.setAttribute('aria-label', 'Ver foto ampliada');
+        expandBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>';
+        expandBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          open(i);
+        });
+        item.appendChild(expandBtn);
+      }
     });
 
     lightbox.querySelector('[data-lightbox-close]').addEventListener('click', close);
@@ -182,6 +205,11 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.querySelector('[data-lightbox-fullscreen]').addEventListener('click', () => {
       const request = lightbox.requestFullscreen || lightbox.webkitRequestFullscreen || lightbox.msRequestFullscreen;
       if (request) request.call(lightbox);
+    });
+
+    // Clicar fora da imagem (no fundo escuro) fecha o lightbox.
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) close();
     });
 
     document.addEventListener('keydown', (e) => {
@@ -207,7 +235,16 @@ document.addEventListener('DOMContentLoaded', () => {
   slides.forEach((_, i) => {
     const dot = document.createElement('div');
     dot.className = 'deck-dot';
+    dot.setAttribute('role', 'button');
+    dot.setAttribute('tabindex', '0');
+    dot.setAttribute('aria-label', `Ir para o slide ${i + 1}`);
     dot.addEventListener('click', () => goToSlide(i));
+    dot.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        goToSlide(i);
+      }
+    });
     deckProgress.appendChild(dot);
   });
   const deckDots = Array.from(deckProgress.children);
@@ -250,10 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('[data-deck-prev]').addEventListener('click', () => { goToSlideLoop(deckIndex - 1); flashDeckNav(); });
   document.querySelector('[data-deck-next]').addEventListener('click', () => { goToSlideLoop(deckIndex + 1); flashDeckNav(); });
 
-  document.getElementById('modal-proposta').addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') goToSlideLoop(deckIndex + 1);
-    if (e.key === 'ArrowLeft') goToSlideLoop(deckIndex - 1);
-  });
+  // (navegação por seta do teclado agora é tratada no listener global de
+  // keydown lá em cima, pra funcionar não importa onde o foco esteja)
 
   // swipe touch
   (function enableSwipe() {
@@ -335,43 +370,54 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     }
 
+    function openLightbox(i) {
+      if (typeof i === 'number') setActive(i);
+      autoplay = false;
+      if (!lightbox || !lightboxImg) return;
+      lightboxImg.src = thumbs[index].getAttribute('data-src');
+      lightboxImg.alt = thumbs[index].querySelector('img').getAttribute('alt') || '';
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = activeModalId ? 'hidden' : '';
+      if (document.fullscreenElement) {
+        (document.exitFullscreen || document.webkitExitFullscreen || function () {}).call(document);
+      }
+    }
+
+    // Clicar numa miniatura já abre direto no fullscreen (igual à Mídia),
+    // em vez de só trocar a foto em destaque.
     thumbs.forEach((btn) => {
       btn.addEventListener('click', () => {
-        autoplay = false;
-        setActive(parseInt(btn.getAttribute('data-index'), 10));
+        openLightbox(parseInt(btn.getAttribute('data-index'), 10));
       });
     });
 
     setActive(0);
     startAutoplay();
 
-    if (expandBtn && lightbox && lightboxImg) {
-      function openLightbox() {
-        autoplay = false;
-        lightboxImg.src = thumbs[index].getAttribute('data-src');
-        lightboxImg.alt = thumbs[index].querySelector('img').getAttribute('alt') || '';
-        lightbox.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      }
+    if (expandBtn) {
+      expandBtn.addEventListener('click', () => openLightbox());
+    }
+    bg.style.cursor = 'zoom-in';
+    bg.addEventListener('click', () => openLightbox());
 
-      function closeLightbox() {
-        lightbox.classList.remove('is-open');
-        document.body.style.overflow = activeModalId ? 'hidden' : '';
-        if (document.fullscreenElement) {
-          (document.exitFullscreen || document.webkitExitFullscreen || function () {}).call(document);
-        }
-      }
-
-      expandBtn.addEventListener('click', openLightbox);
-      bg.style.cursor = 'zoom-in';
-      bg.addEventListener('click', openLightbox);
-
+    if (lightbox && lightboxImg) {
       lightbox.querySelector('[data-editions-lightbox-close]').addEventListener('click', closeLightbox);
       lightbox.querySelector('[data-editions-lightbox-prev]').addEventListener('click', () => setActive(index - 1));
       lightbox.querySelector('[data-editions-lightbox-next]').addEventListener('click', () => setActive(index + 1));
       lightbox.querySelector('[data-editions-lightbox-fullscreen]').addEventListener('click', () => {
         const request = lightbox.requestFullscreen || lightbox.webkitRequestFullscreen || lightbox.msRequestFullscreen;
         if (request) request.call(lightbox);
+      });
+
+      // Clicar fora da imagem (no fundo escuro) fecha o lightbox.
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
       });
 
       document.addEventListener('keydown', (e) => {
@@ -398,6 +444,15 @@ document.addEventListener('DOMContentLoaded', () => {
     cards.forEach((_, i) => {
       const dot = document.createElement('div');
       dot.className = 'deck-dot';
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('tabindex', '0');
+      dot.setAttribute('aria-label', `Ir para o item ${i + 1}`);
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          goTo(i);
+        }
+      });
       dot.addEventListener('click', () => goTo(i));
       dotsWrap.appendChild(dot);
     });
