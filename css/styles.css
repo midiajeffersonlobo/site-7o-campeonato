@@ -55,6 +55,7 @@ html {
 
 html {
   color-scheme: dark;
+  overflow-x: hidden;
 }
 
 body {
@@ -1764,27 +1765,35 @@ a { color: inherit; }
     padding-left: calc(4px + env(safe-area-inset-left, 0px));
     padding-right: calc(4px + env(safe-area-inset-right, 0px));
     overflow: hidden;
-    justify-content: stretch;
+    justify-content: center;
   }
   .action-dock.is-visible {
     transform: translateY(0);
   }
+  /* flex-basis fixo + flex-shrink: em telas largas os botões ficam no
+     tamanho "ideal" (64px), centralizados; se não couber, o próprio
+     flexbox encolhe todos na proporção exata necessária para caber —
+     nunca ultrapassa 100% da largura, então nunca gera scroll.
+     aspect-ratio:1 mantém a altura igual à largura em qualquer tamanho
+     resultante, preservando o círculo perfeito. */
   .dock-btn {
-    flex: 1 1 0;
+    flex: 0 1 64px;
     width: auto;
     min-width: 0;
-    height: 58px;
-    border-radius: 14px;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
     padding: 0 2px;
-    font-size: clamp(0.42rem, 2.4vw, 0.56rem);
+    font-size: clamp(0.4rem, 2vw, 0.56rem);
     white-space: nowrap;
     overflow: hidden;
   }
   .dock-btn.is-primary {
-    flex: 1.15 1 0;
+    flex: 0 1 74px;
     width: auto;
-    height: 62px;
-    border-radius: 14px;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
   }
   .dock-btn svg {
     width: clamp(14px, 4.5vw, 20px);
