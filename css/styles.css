@@ -101,7 +101,9 @@ a { color: inherit; }
   .hero-content,
   .hero-scroll-hint,
   .site-header,
-  .action-dock {
+  .action-dock,
+  .hero-diag-green,
+  .hero-diag-yellow {
     transition-duration: var(--duration-hero) !important;
   }
 }
@@ -194,6 +196,31 @@ a { color: inherit; }
   z-index: 1;
   pointer-events: none;
   opacity: 0.9;
+}
+
+/* Faixa diagonal (verde + amarela) — durante o vídeo do hero ela fica
+   expandida (verde crescendo pra cima, amarela pra baixo), ancorada no
+   ponto onde as duas se encontram (canto esquerdo da costura). Quando o
+   vídeo termina e o menu principal é revelado, ela recolhe suavemente
+   até a faixa fina original, que é o estado que permanece no menu. */
+.hero-diag {
+  transform-box: fill-box;
+  transition: transform var(--duration-hero) var(--ease-hero);
+}
+
+.hero-diag-green {
+  transform-origin: 0% 100%;
+  transform: scaleY(3);
+}
+
+.hero-diag-yellow {
+  transform-origin: 0% 83.333%;
+  transform: scaleY(3);
+}
+
+.hero.is-revealed .hero-diag-green,
+.hero.is-revealed .hero-diag-yellow {
+  transform: scaleY(1);
 }
 
 .hero-content {

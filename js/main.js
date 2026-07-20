@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loop: true,
   });
 
+  const hero = document.getElementById('hero');
   const heroVideoWrap = document.getElementById('heroVideoWrap');
   const heroScrim = document.getElementById('heroScrim');
   const heroContent = document.getElementById('heroContent');
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     heroRevealed = true;
     clearTimeout(heroTimerId);
 
+    if (hero) hero.classList.add('is-revealed');
     heroVideoWrap.classList.add('is-blurred');
     heroScrim.classList.add('is-visible');
     heroContent.classList.add('is-visible');
