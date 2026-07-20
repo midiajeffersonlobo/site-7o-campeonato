@@ -770,6 +770,15 @@ a { color: inherit; }
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
+/* Variante para brasões/logos que já têm fundo transparente e cores
+   próprias — sem o cartão claro, sem padding e sem o corte de canto,
+   só a imagem flutuando com a sombra. */
+.slide-corner-logo.is-transparent {
+  background: none;
+  padding: 0;
+  clip-path: none;
+}
+
 .slide.on-yellow { color: var(--navy-950); }
 .slide.on-yellow .eyebrow { color: var(--navy-800); }
 .slide.on-yellow .slide-title { color: var(--navy-950); -webkit-text-stroke: 0; }
