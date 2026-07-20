@@ -1747,9 +1747,23 @@ a { color: inherit; }
     bottom: 14px;
     gap: 8px;
     padding: 8px;
+    max-width: calc(100vw - 24px);
+    overflow: visible;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 28px;
   }
-  .dock-btn { width: 60px; height: 60px; font-size: 0.56rem; }
-  .dock-btn.is-primary { width: 70px; height: 70px; }
+  .dock-btn { width: 56px; height: 56px; font-size: 0.54rem; }
+  .dock-btn.is-primary { width: 64px; height: 64px; }
+}
+
+@media (max-width: 380px) {
+  .action-dock { gap: 6px; padding: 6px; }
+  .dock-btn { width: 48px; height: 48px; font-size: 0.5rem; gap: 2px; }
+  .dock-btn.is-primary { width: 56px; height: 56px; }
+}
+
+@media (max-width: 640px) {
   .header-logos img { height: 52px; }
   .modal-topbar { padding: 12px var(--gutter); }
 
