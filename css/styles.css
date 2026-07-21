@@ -779,6 +779,20 @@ a { color: inherit; }
   clip-path: none;
 }
 
+/* Variante para posicionar a logo no canto oposto (esquerda), usada
+   quando duas marcas institucionais precisam conviver no mesmo slide
+   (ex.: brasão do Círculo Militar à direita + logo da Prefeitura à
+   esquerda), sem que uma substitua a outra. */
+.slide-corner-logo.is-left {
+  right: auto;
+  left: var(--gutter);
+  clip-path: polygon(calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px), 0 0);
+}
+
+.slide-corner-logo.is-left.is-transparent {
+  clip-path: none;
+}
+
 .slide.on-yellow { color: var(--navy-950); }
 .slide.on-yellow .eyebrow { color: var(--navy-800); }
 .slide.on-yellow .slide-title { color: var(--navy-950); -webkit-text-stroke: 0; }
@@ -1778,6 +1792,7 @@ a { color: inherit; }
 
 @media (max-width: 640px) {
   .slide-corner-logo { width: 70px; top: 14px; right: 14px; padding: 8px; }
+  .slide-corner-logo.is-left { left: 14px; top: auto; bottom: 14px; }
   .slide-bg-logos { flex-direction: column; }
   .slide-bg-logo:first-child { border-right: none; border-bottom: 1px solid rgba(249,248,246,0.12); }
   .slide-bg-logo { padding: 4px 10px; }
