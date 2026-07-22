@@ -39,23 +39,49 @@
     transform: translate(-50%, -50%) translateY(0);
   }
 
+  /* Desktop: sai do centro da tela e passa a ficar fixo ao lado direito
+     do dock de ações (posição calculada via JS, a partir do retângulo
+     real do dock, pra acompanhar qualquer largura de viewport). */
+  .hero-play-group.is-desktop-pos {
+    position: fixed;
+    top: auto;
+    transform: translateY(10px);
+  }
+  .hero-play-group.is-desktop-pos.is-visible {
+    transform: translateY(0);
+  }
+
+  /* Mobile: sai do centro e passa a ficar logo abaixo da linha
+     "Recife/PE" (data + local), dentro do próprio hero — posição
+     calculada via JS a partir do retângulo real do .hero-meta. */
+  .hero-play-group.is-mobile-pos {
+    position: absolute;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+  }
+  .hero-play-group.is-mobile-pos.is-visible {
+    transform: translateX(-50%) translateY(0);
+  }
+
   .hero-play-btn {
     position: relative;
-    width: clamp(72px, 9vw, 108px);
-    height: clamp(72px, 9vw, 108px);
+    width: clamp(58px, 7.2vw, 86px);
+    height: clamp(58px, 7.2vw, 86px);
     border: none;
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
-    opacity: 0.3;
+    opacity: 0;
     transition: opacity var(--duration-fast), transform var(--duration-fast);
   }
   .hero-play-btn:hover, .hero-play-btn:focus-visible {
-    opacity: 1;
+    opacity: 0.1;
     transform: scale(1.08);
   }
+  .hero-play-btn:focus-visible { outline: none; }
   .hero-play-btn svg {
     width: 100%;
     height: 100%;
@@ -63,45 +89,53 @@
   }
   .hero-play-btn.is-mirror svg { transform: scaleX(-1); }
 
-  .hero-play-label {
-    position: absolute;
-    top: calc(100% + 14px);
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    font-family: var(--font-display);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-  }
-
   @media (max-width: 640px) {
     .hero-play-group { gap: 20px; }
-    .hero-play-label { font-size: 0.62rem; top: calc(100% + 10px); }
   }
 
-  /* ---- Shell da página (hero + header + dock): desliza para a direita
-         revelando o painel de Apresentação/Galeria posicionado atrás dele ---- */
+  /* ---- Pular vídeo do hero clicando em qualquer parte da tela (não só
+         no lado direito, como no comportamento padrão do template) ---- */
+  #heroSkipZone { left: 0; width: 100%; }
+
+  /* ---- Selo Kupim Digital: no mobile sobe para o canto superior direito
+         e fica com opacidade bem baixa, como uma marca d'água discreta ---- */
+  @media (max-width: 860px) {
+    #kupim-badge-wrap {
+      top: calc(14px + env(safe-area-inset-top, 0px));
+      right: clamp(12px, 4vw, 22px);
+      bottom: auto;
+      opacity: 0.1;
+    }
+  }
+
+  /* Só aparece no menu principal — some com a Apresentação ou a Galeria
+     abertas (mesmo padrão já usado para os modais da Proposta/Mídia/etc). */
+  body.has-open-screen #kupim-badge-wrap {
+    display: none;
+  }
+
+  /* ---- Shell da página (hero + header + dock): fica estático — o efeito
+         de transição é feito inteiramente pelo painel (.screen-panel), que
+         desliza por CIMA do shell. Isso garante que o movimento fique
+         sempre visível (se o shell também se movesse na frente do painel,
+         o painel terminaria de animar escondido atrás dele). ---- */
   .page-shell {
     position: relative;
-    z-index: 650;
+    z-index: 500;
     background: var(--navy-950);
-    transform: translateX(0);
-    transition: transform 640ms var(--ease-sport);
-    will-change: transform;
   }
-  .page-shell.is-shifted { transform: translateX(100%); }
 
   /* Os modais (Proposta, Mídia, Documento, Cronograma, Contato) e seus
-     lightboxes vivem fora do .page-shell e precisam ficar acima dele
-     (que agora tem z-index:650) para continuarem visíveis ao abrir. */
+     lightboxes continuam acima de tudo. */
   .modal { z-index: 700; }
   .lightbox { z-index: 720; }
   .video-lightbox { z-index: 730; }
 
-  /* ---- Painéis de tela cheia (Apresentação / Galeria) ---- */
+  /* ---- Painéis de tela cheia (Apresentação / Galeria) ----
+     Apresentação entra deslizando da direita pra esquerda;
+     Galeria entra deslizando da esquerda pra direita.
+     Ficam acima do page-shell (z-index maior) pra a animação de
+     deslocamento do próprio painel ficar sempre visível. */
   .screen-panel {
     position: fixed;
     inset: 0;
@@ -109,12 +143,27 @@
     background: var(--navy-950);
     display: flex;
     flex-direction: column;
-    visibility: hidden;
-    transition: visibility 0s linear 640ms;
+    pointer-events: none;
+    transition: transform 640ms var(--ease-sport);
   }
   .screen-panel.is-open {
-    visibility: visible;
-    transition: none;
+    pointer-events: auto;
+  }
+  #presentationScreen { transform: translateX(100%); }
+  #presentationScreen.is-open { transform: translateX(0); }
+  #galleryScreen { transform: translateX(-100%); }
+  #galleryScreen.is-open { transform: translateX(0); }
+
+  /* O site zera globalmente as transições quando o sistema tem "reduzir
+     movimento" ativado (comum no Windows com animações desligadas) — sem
+     esta isenção, o painel pula direto pro estado final sem deslizar,
+     igual já é tratado pro hero e pelo selo Kupim Digital no CSS
+     compartilhado. Essa é uma transição funcional única, não decorativa
+     repetida, então mantemos a duração cheia mesmo com o ajuste ativo. */
+  @media (prefers-reduced-motion: reduce) {
+    .screen-panel {
+      transition-duration: 640ms !important;
+    }
   }
 
   .screen-close, .screen-back {
@@ -346,11 +395,9 @@
   <div class="hero-play-group" id="heroPlayGroup">
     <button type="button" class="hero-play-btn is-mirror" id="galleryPlayBtn" aria-label="Abrir galeria de fotos">
       <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      <span class="hero-play-label">Galeria</span>
     </button>
     <button type="button" class="hero-play-btn" id="presentationPlayBtn" aria-label="Abrir apresentação em slides">
       <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      <span class="hero-play-label">Apresentação</span>
     </button>
   </div>
 </section>
@@ -1061,7 +1108,7 @@
           </button>
           <div class="req-dots" id="reqDots"></div>
         </div>
-        <p class="timeline-note" style="margin-top:16px;max-width:70ch;">A estrutura permanece montada durante todo o evento. A depender do modelo de montagem adotado, apenas uma pequena parte do ginásio fica com acesso restrito, permitindo — se operacionalmente viável — o uso simultâneo do restante do espaço pelos sócios e frequentadores do clube.</p>
+        <p class="timeline-note" style="margin-top:16px;max-width:70ch;">A estrutura permanece montada durante todo o período do evento, evitando montagens e desmontagens diárias.</p>
       </div>
     </div>
   </div>
@@ -1138,6 +1185,10 @@
      que o header e o dock de ações aparecem, controlado pelo main.js). */
   var heroEl = document.getElementById('hero');
   var playGroup = document.getElementById('heroPlayGroup');
+  var actionDockEl = document.getElementById('actionDock');
+  var heroMetaEl = document.querySelector('.hero-meta');
+  var desktopQuery = window.matchMedia('(min-width: 861px)');
+
   if (heroEl && playGroup) {
     var revealObserver = new MutationObserver(function () {
       playGroup.classList.toggle('is-visible', heroEl.classList.contains('is-revealed'));
@@ -1145,6 +1196,80 @@
     revealObserver.observe(heroEl, { attributes: true, attributeFilter: ['class'] });
     if (heroEl.classList.contains('is-revealed')) playGroup.classList.add('is-visible');
   }
+
+  /* Posiciona os botões PLAY: no desktop, à direita do dock de ações;
+     no mobile, logo abaixo da linha "Recife/PE" do hero. Recalcula em
+     resize/orientationchange pra acompanhar qualquer largura de tela. */
+  function positionPlayGroup() {
+    if (!playGroup) return;
+
+    if (desktopQuery.matches && actionDockEl) {
+      playGroup.classList.add('is-desktop-pos');
+      playGroup.classList.remove('is-mobile-pos');
+      var dockRect = actionDockEl.getBoundingClientRect();
+      var groupRect = playGroup.getBoundingClientRect();
+      var gap = 24;
+      var dockCenterY = dockRect.top + dockRect.height / 2;
+      var verticalNudge = 14; // sobe um pouco mais pra alinhar com o ícone do dock (não com o círculo inteiro, que tem o rótulo de texto embaixo)
+      playGroup.style.left = Math.round(dockRect.right + gap) + 'px';
+      playGroup.style.top = Math.round(dockCenterY - groupRect.height / 2 - verticalNudge) + 'px';
+      playGroup.style.bottom = '';
+      playGroup.style.right = '';
+    } else if (heroMetaEl && heroEl) {
+      playGroup.classList.add('is-mobile-pos');
+      playGroup.classList.remove('is-desktop-pos');
+      var metaRect = heroMetaEl.getBoundingClientRect();
+      var heroRect = heroEl.getBoundingClientRect();
+      playGroup.style.top = Math.round(metaRect.bottom - heroRect.top + 18) + 'px';
+      playGroup.style.bottom = '';
+      playGroup.style.right = '';
+      playGroup.style.left = '50%';
+    }
+  }
+
+  positionPlayGroup();
+  window.addEventListener('resize', positionPlayGroup);
+  window.addEventListener('orientationchange', positionPlayGroup);
+  window.addEventListener('load', positionPlayGroup);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(positionPlayGroup);
+  requestAnimationFrame(function () { requestAnimationFrame(positionPlayGroup); });
+  // O dock só recebe a classe "is-visible" (e o tamanho final) quando o
+  // hero é revelado — recalcula nesse momento também.
+  if (heroEl) {
+    var posOnReveal = new MutationObserver(positionPlayGroup);
+    posOnReveal.observe(heroEl, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  /* Opacidade dos botões PLAY aumenta gradualmente conforme o mouse se
+     aproxima (até o máximo de 0.3 quando o cursor está bem em cima),
+     em vez de um simples liga/desliga no hover. */
+  (function () {
+    var playBtns = playGroup ? Array.prototype.slice.call(playGroup.querySelectorAll('.hero-play-btn')) : [];
+    if (!playBtns.length) return;
+
+    var maxOpacity = 0.1;
+    var influenceRadius = 900; // px a partir do centro do botão
+
+    function updateProximity(mx, my) {
+      playBtns.forEach(function (btn) {
+        var r = btn.getBoundingClientRect();
+        var cx = r.left + r.width / 2;
+        var cy = r.top + r.height / 2;
+        var dist = Math.hypot(mx - cx, my - cy);
+        var t = Math.max(0, 1 - dist / influenceRadius);
+        btn.style.opacity = (t * maxOpacity).toFixed(3);
+      });
+    }
+
+    function resetProximity() {
+      playBtns.forEach(function (btn) { btn.style.opacity = ''; });
+    }
+
+    document.addEventListener('mousemove', function (e) {
+      updateProximity(e.clientX, e.clientY);
+    });
+    document.addEventListener('mouseleave', resetProximity);
+  })();
 
   /* ------------------------------------------------------------------------
      PAINEL — Apresentação em slides
@@ -1171,14 +1296,16 @@
 
   function openPreso() {
     presoLastFocused = document.activeElement;
+    presoScreen.setAttribute('aria-hidden', 'false');
     presoScreen.classList.add('is-open');
-    pageShell.classList.add('is-shifted');
+    document.body.classList.add('has-open-screen');
     document.body.style.overflow = 'hidden';
     presoCloseBtn.focus();
   }
   function closePreso() {
     presoScreen.classList.remove('is-open');
-    pageShell.classList.remove('is-shifted');
+    presoScreen.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('has-open-screen');
     document.body.style.overflow = '';
     if (document.fullscreenElement && presoScreen.contains(document.fullscreenElement)) {
       (document.exitFullscreen || document.webkitExitFullscreen || function () {}).call(document);
@@ -1283,14 +1410,16 @@
 
   function openGallery() {
     galleryLastFocused = document.activeElement;
+    galleryScreen.setAttribute('aria-hidden', 'false');
     galleryScreen.classList.add('is-open');
-    pageShell.classList.add('is-shifted');
+    document.body.classList.add('has-open-screen');
     document.body.style.overflow = 'hidden';
     galleryCloseBtn.focus();
   }
   function closeGallery() {
     galleryScreen.classList.remove('is-open');
-    pageShell.classList.remove('is-shifted');
+    galleryScreen.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('has-open-screen');
     document.body.style.overflow = galleryLightbox.classList.contains('is-open') ? 'hidden' : '';
     if (galleryLastFocused) galleryLastFocused.focus();
   }
