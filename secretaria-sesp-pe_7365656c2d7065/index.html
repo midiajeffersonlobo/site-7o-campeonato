@@ -94,6 +94,13 @@
   }
   .page-shell.is-shifted { transform: translateX(100%); }
 
+  /* Os modais (Proposta, Mídia, Documento, Cronograma, Contato) e seus
+     lightboxes vivem fora do .page-shell e precisam ficar acima dele
+     (que agora tem z-index:650) para continuarem visíveis ao abrir. */
+  .modal { z-index: 700; }
+  .lightbox { z-index: 720; }
+  .video-lightbox { z-index: 730; }
+
   /* ---- Painéis de tela cheia (Apresentação / Galeria) ---- */
   .screen-panel {
     position: fixed;
