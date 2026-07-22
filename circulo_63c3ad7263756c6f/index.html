@@ -33,7 +33,10 @@
      ========================================================================== -->
 <section class="hero" id="hero">
   <div class="hero-video-wrap" id="heroVideoWrap">
-    <div id="hero-yt-player"></div>
+    <video id="hero-yt-player" autoplay muted loop playsinline preload="auto">
+      <source src="../assets/videos/hero.webm" type="video/webm">
+      <source src="../assets/videos/hero.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-scrim" id="heroScrim"></div>
 
@@ -172,7 +175,7 @@
           <div class="slide-inner">
             <span class="eyebrow">Representante da proposta</span>
             <div class="slide-num">03</div>
-            <h2 class="slide-title">Jefferson Phelype <em>Lôbo</em></h2>
+            <h2 class="slide-title">Jefferson <em>Lôbo</em></h2>
             <p class="slide-body">Presidente da FPEKSPORT e representante oficial da CONBRAKS em Pernambuco. Profissional de Educação Física, atua há mais de dez anos no desenvolvimento da modalidade.</p>
             <ul class="slide-list">
               <li>Campeão Mundial de Kettlebell Sport e Heptacampeão Sul-Americano.</li>
@@ -319,7 +322,10 @@
             <p class="slide-body">Trecho de competição de uma edição anterior — double snatch em ação.</p>
             <div class="slide-video-frame">
               <div class="locked-player" id="proposalVideoPlayer">
-                <div class="locked-player-yt" id="proposalVideoYT"></div>
+                <video class="locked-player-yt" id="proposalVideoYT" playsinline preload="metadata" muted>
+                  <source src="../assets/videos/proposta.webm" type="video/webm">
+                  <source src="../assets/videos/proposta.mp4" type="video/mp4">
+                </video>
                 <span class="locked-player-badge">Trecho selecionado</span>
                 <div class="locked-player-controls">
                   <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
@@ -437,8 +443,11 @@
     <p class="media-section-title">Vídeos — trechos selecionados</p>
     <div class="media-grid">
       <div class="media-item type-video is-wide">
-        <div class="locked-player" data-media-player data-video-id="6fK-rtPlfxY" data-start="9665" data-end="9725">
-          <div class="locked-player-yt"></div>
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/boxes.webm" type="video/webm">
+          <source src="../assets/videos/boxes.mp4" type="video/mp4">
+        </video>
           <span class="locked-player-badge">Boxes</span>
           <div class="locked-player-controls">
             <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
@@ -461,8 +470,11 @@
       </div>
 
       <div class="media-item type-video">
-        <div class="locked-player" data-media-player data-video-id="6fK-rtPlfxY" data-start="7620" data-end="7641">
-          <div class="locked-player-yt"></div>
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/medalhas.webm" type="video/webm">
+          <source src="../assets/videos/medalhas.mp4" type="video/mp4">
+        </video>
           <span class="locked-player-badge">Medalhas</span>
           <div class="locked-player-controls">
             <button class="locked-player-btn" data-video-seek="-5" aria-label="Voltar 5 segundos">
@@ -485,8 +497,11 @@
       </div>
 
       <div class="media-item type-video">
-        <div class="locked-player" data-media-player data-video-id="6fK-rtPlfxY" data-start="18646" data-end="18706">
-          <div class="locked-player-yt"></div>
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/plano-amplo.webm" type="video/webm">
+          <source src="../assets/videos/plano-amplo.mp4" type="video/mp4">
+        </video>
           <span class="locked-player-badge">Plano amplo</span>
           <div class="locked-player-controls">
             <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
@@ -701,7 +716,6 @@
   </div>
 </div>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script src="../js/ytplayer.js"></script>
 <script src="../js/main.js"></script>
 

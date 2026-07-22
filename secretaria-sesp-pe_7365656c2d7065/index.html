@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7º Campeonato Brasileiro de Kettlebell Sport — CONBRAKS 2026 | Proposta de Apoio Institucional à Secretaria de Esportes de Pernambuco (SESP-PE)</title>
+<meta name="description" content="Solicitação de apoio institucional da CONBRAKS e FPEKSPORT à Secretaria de Esportes de Pernambuco (SESP-PE) para a realização do 7º Campeonato Brasileiro de Kettlebell Sport, 19 a 22 de novembro de 2026, em Recife/PE.">
+<meta name="theme-color" content="#00194E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="7º Campeonato Brasileiro de Kettlebell Sport — CONBRAKS 2026 | Proposta de Apoio Institucional à Secretaria de Esportes de Pernambuco (SESP-PE)">
+<meta property="og:description" content="Solicitação de apoio institucional da CONBRAKS e FPEKSPORT à Secretaria de Esportes de Pernambuco (SESP-PE) para a realização do 7º Campeonato Brasileiro de Kettlebell Sport, 19 a 22 de novembro de 2026, em Recife/PE.">
+<meta property="og:image" content="../assets/fotos/banner01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+
+<!-- ============ Estilos exclusivos desta página: Play buttons, Apresentação e Galeria ============ -->
+<style>
+  /* ---- Botões PLAY no hero ---- */
+  .hero-play-group {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: clamp(28px, 6vw, 64px);
+    transform: translate(-50%, -50%) translateY(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 900ms var(--ease-hero) 300ms, transform 900ms var(--ease-hero) 300ms;
+  }
+  .hero-play-group.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+
+  .hero-play-btn {
+    position: relative;
+    width: clamp(72px, 9vw, 108px);
+    height: clamp(72px, 9vw, 108px);
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    opacity: 0.3;
+    transition: opacity var(--duration-fast), transform var(--duration-fast);
+  }
+  .hero-play-btn:hover, .hero-play-btn:focus-visible {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  .hero-play-btn svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+  .hero-play-btn.is-mirror svg { transform: scaleX(-1); }
+
+  .hero-play-label {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .hero-play-group { gap: 20px; }
+    .hero-play-label { font-size: 0.62rem; top: calc(100% + 10px); }
+  }
+
+  /* ---- Shell da página (hero + header + dock): desliza para a direita
+         revelando o painel de Apresentação/Galeria posicionado atrás dele ---- */
+  .page-shell {
+    position: relative;
+    z-index: 650;
+    background: var(--navy-950);
+    transform: translateX(0);
+    transition: transform 640ms var(--ease-sport);
+    will-change: transform;
+  }
+  .page-shell.is-shifted { transform: translateX(100%); }
+
+  /* ---- Painéis de tela cheia (Apresentação / Galeria) ---- */
+  .screen-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 600;
+    background: var(--navy-950);
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    transition: visibility 0s linear 640ms;
+  }
+  .screen-panel.is-open {
+    visibility: visible;
+    transition: none;
+  }
+
+  .screen-close, .screen-back {
+    position: absolute;
+    top: clamp(14px, 3vh, 26px);
+    right: clamp(14px, 3vw, 28px);
+    z-index: 20;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--yellow-500);
+    background: rgba(0, 25, 78, 0.65);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+  }
+  .screen-close:hover, .screen-close:focus-visible,
+  .screen-back:hover, .screen-back:focus-visible {
+    background: var(--yellow-500);
+    color: var(--navy-950);
+    transform: rotate(90deg);
+  }
+  .screen-back:hover, .screen-back:focus-visible { transform: none; }
+  .screen-close svg, .screen-back svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* Apresentação */
+  .screen-deck-wrap { flex: 1; min-height: 0; }
+
+  .slide.slide--image {
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 3vw, 40px);
+  }
+  .preso-slide-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .screen-fullscreen {
+    position: absolute;
+    bottom: clamp(14px, 3vh, 28px);
+    right: clamp(14px, 3vw, 28px);
+    z-index: 20;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid var(--yellow-500);
+    background: rgba(0, 25, 78, 0.65);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--duration-fast), color var(--duration-fast);
+  }
+  .screen-fullscreen:hover, .screen-fullscreen:focus-visible {
+    background: var(--yellow-500);
+    color: var(--navy-950);
+  }
+  .screen-fullscreen svg { width: 19px; height: 19px; fill: currentColor; }
+
+  .screen-exit-fullscreen {
+    position: absolute;
+    top: clamp(14px, 3vh, 26px);
+    right: clamp(14px, 3vw, 28px);
+    z-index: 25;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--white);
+    opacity: 0.4;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--duration-fast);
+  }
+  .screen-exit-fullscreen:hover, .screen-exit-fullscreen:focus-visible { opacity: 0.9; }
+  .screen-exit-fullscreen svg { width: 16px; height: 16px; fill: currentColor; }
+  #presentationScreen:fullscreen .screen-exit-fullscreen { display: flex; }
+  #presentationScreen:fullscreen .screen-close { display: none; }
+  #presentationScreen:fullscreen .screen-fullscreen { display: none; }
+
+  /* Galeria */
+  .gallery-header {
+    position: relative;
+    flex-shrink: 0;
+    background: var(--navy-950);
+    padding: 0 var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .gallery-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: clamp(24px, 5vh, 44px);
+    background: linear-gradient(180deg, rgba(0, 25, 78, 0) 0%, var(--white) 100%);
+    pointer-events: none;
+  }
+  .gallery-header img {
+    position: relative;
+    z-index: 1;
+    width: clamp(150px, 18vw, 240px);
+    height: auto;
+  }
+
+  .gallery-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    background: var(--white);
+    padding: 0 var(--gutter) var(--space-2xl);
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Edge/IE legado */
+  }
+  .gallery-body::-webkit-scrollbar { display: none; /* Chrome, Safari, Edge novo */ }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: clamp(10px, 1.6vw, 18px);
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #eef1f5;
+    box-shadow: 0 2px 10px rgba(0, 25, 78, 0.08);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-normal) var(--ease-sport);
+  }
+  .gallery-item:hover img, .gallery-item:focus-visible img { transform: scale(1.06); }
+  .gallery-item:focus-visible { outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+    .gallery-header { padding: 18px var(--gutter) 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Shell da página: hero + header + dock. Ao abrir a Apresentação ou a
+     Galeria, este bloco desliza para a direita, revelando o painel por trás. -->
+<div class="page-shell" id="pageShell">
+
+<!-- Textura global de ruído -->
+<svg class="site-texture" width="100%" height="100%">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+    <feColorMatrix type="saturate" values="0"></feColorMatrix>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#grain)"></rect>
+</svg>
+
+<!-- ==========================================================================
+     HERO — vídeo em tela cheia, header e dock revelados após 5s
+     ========================================================================== -->
+<section class="hero" id="hero">
+  <div class="hero-video-wrap" id="heroVideoWrap">
+    <video id="hero-yt-player" autoplay muted loop playsinline preload="auto">
+      <source src="../assets/videos/hero.webm" type="video/webm">
+      <source src="../assets/videos/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-scrim" id="heroScrim"></div>
+
+  <div class="hero-skip-zone" id="heroSkipZone" aria-hidden="true"></div>
+
+  <button class="hero-skip" id="heroSkip" aria-label="Pular vídeo de introdução">
+    Pular vídeo
+    <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
+  </button>
+
+  <svg class="hero-diagonals" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="0,620 1000,420 1000,460 0,660" fill="#087752" opacity="0.35"/>
+    <polygon points="0,660 1000,460 1000,500 0,700" fill="#E6C009" opacity="0.4"/>
+  </svg>
+
+  <div class="hero-content" id="heroContent">
+    <p class="hero-kicker">Solicitação de apoio institucional · CONBRAKS &amp; FPEKSPORT</p>
+    <h1 class="hero-title">
+      <span class="edition">7º</span> Campeonato<br>
+      Brasileiro de<br>
+      <span class="accent">Kettlebell Sport</span>
+    </h1>
+    <div class="hero-meta">
+      <span>
+        <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zM5 9h14v11H5V9z"/></svg>
+        19 a 22 de novembro / 2026
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        Recife / PE
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Proposta de apoio institucional à Secretaria de Esportes de Pernambuco
+      </span>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" id="heroScrollHint"></div>
+
+  <!-- Botões PLAY — abrem a Apresentação (direita) e a Galeria (esquerda) -->
+  <div class="hero-play-group" id="heroPlayGroup">
+    <button type="button" class="hero-play-btn is-mirror" id="galleryPlayBtn" aria-label="Abrir galeria de fotos">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <span class="hero-play-label">Galeria</span>
+    </button>
+    <button type="button" class="hero-play-btn" id="presentationPlayBtn" aria-label="Abrir apresentação em slides">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <span class="hero-play-label">Apresentação</span>
+    </button>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     HEADER
+     ========================================================================== -->
+<header class="site-header" id="siteHeader">
+  <div class="header-logos">
+    <a href="https://fedpernambucanakettlebellsport.com/" target="_blank" rel="noopener" aria-label="Visitar site da FPEKSPORT">
+      <img src="../assets/logos/logo-fpeks.svg" alt="FPEKSPORT — Federação Pernambucana de Kettlebell Sport">
+    </a>
+    <div class="header-divider"></div>
+    <a href="https://www.conbraks.com.br/" target="_blank" rel="noopener" aria-label="Visitar site da CONBRAKS">
+      <img src="../assets/logos/logo-conbraks.svg" alt="CONBRAKS — Confederação Brasileira de Kettlebell Sport">
+    </a>
+    <div class="header-divider"></div>
+    <a href="https://www.instagram.com/wksf_brasil" target="_blank" rel="noopener" aria-label="Visitar Instagram da WKSF Brasil">
+      <img src="../assets/logos/logo-wksf.svg" alt="WKSF — World Kettlebell Sport Federation">
+    </a>
+  </div>
+  <p class="header-event"><strong>7º</strong> Campeonato Brasileiro de <strong>Kettlebell Sport</strong> • Recife/PE</p>
+</header>
+
+<!-- ==========================================================================
+     DOCK — botões flutuantes de ação
+     ========================================================================== -->
+<nav class="action-dock" id="actionDock" aria-label="Ações da proposta">
+  <button class="dock-btn is-primary" data-open-modal="modal-proposta" aria-label="Ver proposta resumida">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 7h16v2H4v-2zm0 7h10v2H4v-2z"/></svg>
+    Proposta
+  </button>
+  <button class="dock-btn" data-open-modal="modal-midia" aria-label="Ver fotos e vídeos de edições anteriores">
+    <svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2v10h14V7H5zm3 1 3 3-2 2 4 4H7V8z"/></svg>
+    Mídia
+  </button>
+  <button class="dock-btn" data-open-modal="modal-documento" aria-label="Ver documento oficial em PDF">
+    <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16z"/></svg>
+    Documento
+  </button>
+  <button class="dock-btn" data-open-modal="modal-estrutura" aria-label="Ver cronograma e estrutura solicitada">
+    <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zM5 9h14v11H5V9zm2 2v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/></svg>
+    Cronograma
+  </button>
+  <button class="dock-btn" data-open-modal="modal-contato" aria-label="Falar com a organização">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 9h12v2H6V9zm0 4h8v2H6v-2z"/></svg>
+    Contato
+  </button>
+</nav>
+
+</div><!-- /.page-shell -->
+
+<!-- ==========================================================================
+     MODAL — PROPOSTA RESUMIDA (deck de slides)
+     ========================================================================== -->
+<div class="modal" id="modal-proposta" role="dialog" aria-modal="true" aria-label="Proposta resumida">
+  <div class="modal-topbar">
+    <p class="modal-title"><span class="modal-title-num" id="deckCounter">01</span>&nbsp;/&nbsp;14 — Proposta Resumida</p>
+    <button class="modal-close" data-close-modal aria-label="Fechar">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="deck" id="propostaDeck">
+      <div class="deck-track" id="deckTrack">
+
+        <!-- Slide 1 — Abertura -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/foto-01.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Solicitação de apoio institucional</span>
+            <div class="slide-num">01</div>
+            <h2 class="slide-title">7º Campeonato Brasileiro de <em>Kettlebell Sport</em></h2>
+            <p class="slide-body">CONBRAKS e FPEKSPORT solicitam o apoio institucional da Secretaria de Esportes de Pernambuco (SESP-PE), incluindo a cessão de um ginásio esportivo, para viabilizar o maior campeonato de Kettlebell Sport já realizado na Região Nordeste. 19 a 22 de novembro de 2026, Recife/PE.</p>
+          </div>
+        </div>
+
+        <!-- Slide 2 — Quem somos -->
+        <div class="slide" data-slide>
+          <div class="slide-bg tone-navy">
+            <div class="slide-bg-logos">
+              <div class="slide-bg-logo"><img src="../assets/logos/logo-conbraks.svg" alt="" loading="lazy"></div>
+              <div class="slide-bg-logo"><img src="../assets/logos/logo-fpeks.svg" alt="" loading="lazy"></div>
+            </div>
+          </div>
+          <div class="slide-inner">
+            <span class="eyebrow">Quem somos</span>
+            <div class="slide-num">02</div>
+            <h2 class="slide-title">CONBRAKS <em>&amp;</em> FPEKSPORT</h2>
+            <ul class="slide-list">
+              <li>CONBRAKS: entidade máxima do Kettlebell Sport no Brasil — regulamenta a modalidade, organiza competições oficiais e forma árbitros e treinadores.</li>
+              <li>FPEKSPORT: responsável pela organização e desenvolvimento da modalidade em Pernambuco, com campeonatos, cursos e parcerias com instituições de ensino.</li>
+              <li>Missão conjunta: usar o esporte como ferramenta de educação, saúde, inclusão social e desenvolvimento humano.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 3 — Representante -->
+        <div class="slide" data-slide>
+          <div class="slide-bg slide-bg-zoom" style="background-image:url('../assets/fotos/jefferson-01.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Representante da proposta</span>
+            <div class="slide-num">03</div>
+            <h2 class="slide-title">Jefferson <em>Lôbo</em></h2>
+            <p class="slide-body">Presidente da FPEKSPORT e representante oficial da CONBRAKS em Pernambuco. Profissional de Educação Física, atua há mais de dez anos no desenvolvimento da modalidade.</p>
+            <ul class="slide-list">
+              <li>Campeão Mundial de Kettlebell Sport e Heptacampeão Sul-Americano.</li>
+              <li>Árbitro Internacional da World Kettlebell Sport Federation (WKSF).</li>
+              <li>Responsável pela implantação e expansão da modalidade em Pernambuco.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 4 — Sobre o campeonato -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/foto-02.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Sobre o campeonato</span>
+            <div class="slide-num">04</div>
+            <h2 class="slide-title">Um marco para o Nordeste</h2>
+            <p class="slide-body">Pela primeira vez, o Campeonato Brasileiro de Kettlebell Sport será realizado na Região Nordeste, reunindo atletas, técnicos, árbitros e dirigentes de diversos estados. Cobertura fotográfica e audiovisual completa, com divulgação nacional antes, durante e depois da competição.</p>
+          </div>
+        </div>
+
+        <!-- Slide 5 — Por que o apoio da SESP-PE -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/banner01.jpg')"></div>
+          <img class="slide-corner-logo" src="../assets/logos/logo-sesp-pe.webp" alt="Secretaria de Esportes de Pernambuco" loading="lazy">
+          <div class="slide-inner">
+            <span class="slide-tag">Por que o apoio da Secretaria de Esportes de Pernambuco?</span>
+            <div class="slide-num">05</div>
+            <h2 class="slide-title">Alinhado à <em>missão</em> da SESP-PE</h2>
+            <p class="slide-body">A SESP-PE tem como missão fomentar e executar a gestão voltada ao desenvolvimento esportivo e social do estado, com foco em inovação, inclusão e sustentabilidade. O 7º Campeonato Brasileiro de Kettlebell Sport dialoga diretamente com essa missão: é a 1ª edição do Brasileiro realizada no Nordeste, reunindo atletas de todo o país e fortalecendo o calendário esportivo estadual — com a cessão de um ginásio esportivo (como o Parque Santos Dumont, o Ginásio da Várzea, o Compaz Eduardo Campos ou outro espaço indicado pela Secretaria).</p>
+          </div>
+        </div>
+
+        <!-- Slide 6 — Benefícios SESP-PE -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/foto-05.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Benefícios para a Secretaria de Esportes de Pernambuco</span>
+            <div class="slide-num">06</div>
+            <h2 class="slide-title">Visibilidade e <em>fortalecimento</em> institucional</h2>
+            <ul class="slide-list">
+              <li>Reconhecimento oficial como Apoiadora Institucional Oficial do 7º Campeonato Brasileiro de Kettlebell Sport — CONBRAKS 2026.</li>
+              <li>Marca da SESP-PE inserida nos materiais oficiais do evento: banners, backdrops, certificados, camisas e peças publicitárias, conforme as diretrizes institucionais do Estado.</li>
+              <li>Ampla divulgação de Pernambuco por meio de cobertura fotográfica, produção audiovisual, redes sociais e transmissão das competições.</li>
+              <li>Impacto positivo na economia local — hotelaria, alimentação, transporte, comércio e turismo — com a chegada de atletas de todo o país.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 7 — Benefícios para a Cidade do Recife -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/marcozero0.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Benefícios para a Cidade do Recife</span>
+            <div class="slide-num">07</div>
+            <h2 class="slide-title">Uma vitrine <em>nacional</em> para a cidade</h2>
+            <ul class="slide-list">
+              <li>Recife torna-se a primeira cidade do Nordeste a sediar o Campeonato Brasileiro de Kettlebell Sport, ganhando destaque nacional.</li>
+              <li>Movimentação da economia local — hotelaria, alimentação, transporte, comércio e turismo — com a chegada de atletas de diversos estados.</li>
+              <li>Ampla exposição da imagem da cidade em cobertura fotográfica, audiovisual, redes sociais e transmissão das competições.</li>
+              <li>Fortalecimento do calendário esportivo municipal e geração de intercâmbio esportivo e turístico para Recife.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 8 — Cronograma -->
+        <div class="slide" data-slide>
+          <div class="slide-bg slide-bg-top" style="background-image:url('../assets/fotos/banner01.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Cronograma</span>
+            <div class="slide-num">08</div>
+            <h2 class="slide-title">4 dias em <em>Recife</em></h2>
+            <ul class="slide-list">
+              <li><strong>19/11</strong> — Montagem da estrutura esportiva e técnica (8h às 15h)</li>
+              <li><strong>20/11</strong> — 1º dia de competições (7h às 18h) · feriado nacional</li>
+              <li><strong>21/11</strong> — 2º dia de competições (7h às 18h)</li>
+              <li><strong>22/11</strong> — 3º dia de competições e desmontagem (7h às 17h)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 9 — Estrutura necessária -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/foto-03.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Estrutura necessária</span>
+            <div class="slide-num">09</div>
+            <h2 class="slide-title">O que estamos solicitando</h2>
+            <ul class="slide-list">
+              <li>Ginásio poliesportivo, vestiários, banheiros e bebedouros</li>
+              <li>Salas de apoio para organização e arbitragem</li>
+              <li>Vagas para carga e descarga · equipe de limpeza · segurança patrimonial</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 10 — Contrapartidas -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/foto-04.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Contrapartidas CONBRAKS &amp; FPEKSPORT</span>
+            <div class="slide-num">10</div>
+            <h2 class="slide-title">O que oferecemos <em>em troca</em></h2>
+            <ul class="slide-list">
+              <li>Reconhecimento oficial da Secretaria de Esportes de Pernambuco (SESP-PE) como Apoiadora Institucional Oficial do evento</li>
+              <li>Marca da SESP-PE inserida nos materiais oficiais, banners, backdrops, certificados, camisas e peças publicitárias, conforme diretrizes institucionais do Estado</li>
+              <li>Divulgação da cidade do Recife em cobertura fotográfica, audiovisual, redes sociais e transmissão das competições, levando o nome do município a todo o Brasil</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 11 — Edições anteriores (carrossel) -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" id="editionsCarouselBg" style="background-image:url('../assets/fotos/foto-02.jpg')"></div>
+          <div class="slide-inner" style="max-width:none">
+            <span class="eyebrow">Edições anteriores</span>
+            <div class="slide-num">11</div>
+            <h2 class="slide-title">Já vivemos isso <em>antes</em></h2>
+            <div class="edition-thumbs" id="editionsCarousel">
+              <button type="button" class="edition-thumb is-active" data-index="0" data-src="../assets/fotos/foto-02.jpg">
+                <img src="../assets/fotos/foto-02.jpg" alt="Estrutura do WKSF Open South &amp; North America Championship 2025" width="1600" height="900" loading="lazy">
+              </button>
+              <button type="button" class="edition-thumb" data-index="1" data-src="../assets/fotos/foto-05.jpg">
+                <img src="../assets/fotos/foto-05.jpg" alt="Competição de Kettlebell Sport, plataforma e arbitragem" width="1600" height="900" loading="lazy">
+              </button>
+              <button type="button" class="edition-thumb" data-index="2" data-src="../assets/fotos/foto-03.jpg">
+                <img src="../assets/fotos/foto-03.jpg" alt="Montagem da arena de competição" width="1600" height="900" loading="lazy">
+              </button>
+              <button type="button" class="edition-thumb" data-index="3" data-src="../assets/fotos/foto-04.jpg">
+                <img src="../assets/fotos/foto-04.jpg" alt="Organização do campeonato" width="1200" height="1600" loading="lazy">
+              </button>
+            </div>
+          </div>
+          <button class="edition-expand" id="editionsExpand" aria-label="Ver foto ampliada">
+            <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+          </button>
+        </div>
+
+        <!-- Slide 12 — Vídeo (trecho travado) -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/banner01.jpg')"></div>
+          <div class="slide-inner">
+            <span class="eyebrow">Registro em vídeo</span>
+            <div class="slide-num">12</div>
+            <h2 class="slide-title">Veja como <em>foi</em></h2>
+            <p class="slide-body">Trecho de competição de uma edição anterior — double snatch em ação.</p>
+            <div class="slide-video-frame">
+              <div class="locked-player" id="proposalVideoPlayer">
+                <video class="locked-player-yt" id="proposalVideoYT" playsinline preload="metadata" muted>
+                  <source src="../assets/videos/proposta.webm" type="video/webm">
+                  <source src="../assets/videos/proposta.mp4" type="video/mp4">
+                </video>
+                <span class="locked-player-badge">Trecho selecionado</span>
+                <div class="locked-player-controls">
+                  <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
+                    <svg viewBox="0 0 24 24"><path d="M11 18V6l-8 6 8 6zm2-12v12l8-6-8-6z"/></svg>
+                  </button>
+                  <button class="locked-player-btn" data-video-toggle aria-label="Reproduzir ou pausar">
+                    <svg data-icon-play viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg data-icon-pause viewBox="0 0 24 24" style="display:none"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                  </button>
+                  <button class="locked-player-btn" data-video-seek="10" aria-label="Avançar 10 segundos">
+                    <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
+                  </button>
+                  <div class="locked-player-bar" data-video-bar>
+                    <div class="locked-player-bar-fill" data-video-fill></div>
+                  </div>
+                  <span class="locked-player-time" data-video-time>0:00</span>
+                  <button class="locked-player-btn is-ghost" data-video-fullscreen aria-label="Ver em tela cheia">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 14 — Fechamento -->
+        <div class="slide" data-slide>
+          <div class="slide-bg" style="background-image:url('../assets/fotos/marcozero0.jpg')"></div>
+          <div class="slide-inner">
+            <span class="slide-tag">Vamos construir isso juntos</span>
+            <h2 class="slide-title" style="font-size:clamp(2.4rem,7vw,5rem)">Recife pronta para <em>sediar</em> a história</h2>
+            <p class="slide-body">Estamos à disposição para apresentar o projeto pessoalmente e realizar uma visita técnica ao espaço.</p>
+            <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;">
+              <button class="btn" data-open-modal="modal-documento">Ver documento oficial</button>
+              <button class="btn btn-outline" data-open-modal="modal-contato">Falar com a equipe</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="deck-nav deck-prev" data-deck-prev aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="deck-nav deck-next" data-deck-next aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="deck-progress" id="deckProgress"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     MODAL — DOCUMENTO OFICIAL (PDF)
+     ========================================================================== -->
+<div class="modal" id="modal-documento" role="dialog" aria-modal="true" aria-label="Documento oficial em PDF">
+  <div class="modal-topbar">
+    <p class="modal-title">Documento Oficial</p>
+    <button class="modal-close" data-close-modal aria-label="Fechar">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="pdf-toolbar">
+    <p>Ofício CONBRAKS/FPEKSPORT à Secretaria de Esportes de Pernambuco (SESP-PE) — Solicitação de Apoio Institucional para o 7º Campeonato Brasileiro de Kettlebell Sport.</p>
+    <a class="btn" href="../assets/pdf/proposta-sesp-pe-conbraks-2026.pdf" download>
+      <svg viewBox="0 0 24 24"><path d="M12 3v10.5l4-4 1.4 1.4L12 16.8l-5.4-5.9L8 9.5l4 4V3h0zM5 19h14v2H5z"/></svg>
+      Baixar PDF
+    </a>
+    <a class="btn btn-outline pdf-open-mobile" href="../assets/pdf/proposta-sesp-pe-conbraks-2026.pdf" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16z"/></svg>
+      Abrir PDF
+    </a>
+  </div>
+  <div class="modal-body pdf-frame-wrap">
+    <iframe id="pdfFrame" src="" data-pdf-src="../assets/pdf/proposta-sesp-pe-conbraks-2026.pdf" title="Documento oficial da proposta em PDF"></iframe>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     MODAL — MÍDIA (fotos e vídeos de edições anteriores)
+     ========================================================================== -->
+<div class="modal" id="modal-midia" role="dialog" aria-modal="true" aria-label="Fotos e vídeos de edições anteriores">
+  <div class="modal-topbar">
+    <p class="modal-title">Mídia — Edições Anteriores</p>
+    <button class="modal-close" data-close-modal aria-label="Fechar">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="modal-body media-scroller">
+    <p class="media-section-title">Fotos</p>
+    <div class="media-grid">
+      <div class="media-item type-photo">
+        <img src="../assets/fotos/foto-01.jpg" alt="Recepção de comitês na entrada do campeonato" width="1440" height="1920" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Recepção e organização">
+        <span class="media-caption">Recepção &amp; organização</span>
+      </div>
+      <div class="media-item type-photo">
+        <img src="../assets/fotos/foto-02.jpg" alt="Estrutura de competição montada no ginásio" width="1600" height="900" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Estrutura montada">
+        <span class="media-caption">Estrutura montada</span>
+      </div>
+      <div class="media-item type-photo">
+        <img src="../assets/fotos/foto-03.jpg" alt="Bastidores da montagem da arena" width="1600" height="900" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Bastidores da montagem">
+        <span class="media-caption">Bastidores da montagem</span>
+      </div>
+      <div class="media-item type-photo">
+        <img src="../assets/fotos/foto-04.jpg" alt="Equipe técnica em ação durante o evento" width="1200" height="1600" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Equipe técnica">
+        <span class="media-caption">Equipe técnica</span>
+      </div>
+      <div class="media-item type-photo">
+        <img src="../assets/fotos/foto-05.jpg" alt="Atletas competindo em plataforma com arbitragem" width="1600" height="900" loading="lazy" tabindex="0" role="button" aria-label="Ampliar foto: Atletas em competição">
+        <span class="media-caption">Atletas em competição</span>
+      </div>
+    </div>
+
+    <p class="media-section-title">Vídeos — trechos selecionados</p>
+    <div class="media-grid">
+      <div class="media-item type-video is-wide">
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/boxes.webm" type="video/webm">
+          <source src="../assets/videos/boxes.mp4" type="video/mp4">
+        </video>
+          <span class="locked-player-badge">Boxes</span>
+          <div class="locked-player-controls">
+            <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
+              <svg viewBox="0 0 24 24"><path d="M11 18V6l-8 6 8 6zm2-12v12l8-6-8-6z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-toggle aria-label="Reproduzir ou pausar">
+              <svg data-icon-play viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg data-icon-pause viewBox="0 0 24 24" style="display:none"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-seek="10" aria-label="Avançar 10 segundos">
+              <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
+            </button>
+            <div class="locked-player-bar" data-video-bar><div class="locked-player-bar-fill" data-video-fill></div></div>
+            <span class="locked-player-time" data-video-time>0:00</span>
+            <button class="locked-player-btn is-ghost" data-video-fullscreen aria-label="Ver em tela cheia">
+              <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-item type-video">
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/medalhas.webm" type="video/webm">
+          <source src="../assets/videos/medalhas.mp4" type="video/mp4">
+        </video>
+          <span class="locked-player-badge">Medalhas</span>
+          <div class="locked-player-controls">
+            <button class="locked-player-btn" data-video-seek="-5" aria-label="Voltar 5 segundos">
+              <svg viewBox="0 0 24 24"><path d="M11 18V6l-8 6 8 6zm2-12v12l8-6-8-6z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-toggle aria-label="Reproduzir ou pausar">
+              <svg data-icon-play viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg data-icon-pause viewBox="0 0 24 24" style="display:none"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-seek="5" aria-label="Avançar 5 segundos">
+              <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
+            </button>
+            <div class="locked-player-bar" data-video-bar><div class="locked-player-bar-fill" data-video-fill></div></div>
+            <span class="locked-player-time" data-video-time>0:00</span>
+            <button class="locked-player-btn is-ghost" data-video-fullscreen aria-label="Ver em tela cheia">
+              <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-item type-video">
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/plano-amplo.webm" type="video/webm">
+          <source src="../assets/videos/plano-amplo.mp4" type="video/mp4">
+        </video>
+          <span class="locked-player-badge">Plano amplo</span>
+          <div class="locked-player-controls">
+            <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
+              <svg viewBox="0 0 24 24"><path d="M11 18V6l-8 6 8 6zm2-12v12l8-6-8-6z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-toggle aria-label="Reproduzir ou pausar">
+              <svg data-icon-play viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg data-icon-pause viewBox="0 0 24 24" style="display:none"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-seek="10" aria-label="Avançar 10 segundos">
+              <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
+            </button>
+            <div class="locked-player-bar" data-video-bar><div class="locked-player-bar-fill" data-video-fill></div></div>
+            <span class="locked-player-time" data-video-time>0:00</span>
+            <button class="locked-player-btn is-ghost" data-video-fullscreen aria-label="Ver em tela cheia">
+              <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     LIGHTBOX — visualização ampliada das fotos da Mídia
+     ========================================================================== -->
+<div class="lightbox" id="mediaLightbox" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
+  <button class="lightbox-close" data-lightbox-close aria-label="Fechar">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Foto anterior">
+    <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Próxima foto">
+    <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="lightbox-fullscreen" data-lightbox-fullscreen aria-label="Ver em tela cheia">
+    <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+  </button>
+</div>
+
+<!-- ==========================================================================
+     LIGHTBOX — foto ampliada do carrossel de edições anteriores (slide 11)
+     ========================================================================== -->
+<div class="lightbox" id="editionsLightbox" role="dialog" aria-modal="true" aria-label="Visualizador de foto ampliada">
+  <button class="lightbox-close" data-editions-lightbox-close aria-label="Fechar">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" data-editions-lightbox-prev aria-label="Foto anterior">
+    <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <img class="lightbox-img" id="editionsLightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" data-editions-lightbox-next aria-label="Próxima foto">
+    <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="lightbox-fullscreen" data-editions-lightbox-fullscreen aria-label="Ver em tela cheia">
+    <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+  </button>
+</div>
+
+<!-- ==========================================================================
+     LIGHTBOX — vídeo ampliado (Mídia, clique no vídeo no desktop)
+     ========================================================================== -->
+<div class="video-lightbox" id="videoLightbox" role="dialog" aria-modal="true" aria-label="Vídeo ampliado">
+  <button class="video-lightbox-close" data-video-lightbox-close aria-label="Fechar">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+  <div class="video-lightbox-stage" id="videoLightboxStage"></div>
+</div>
+
+<!-- ==========================================================================
+     PAINEL — APRESENTAÇÃO EM SLIDES (aberto pelo botão PLAY direito do hero)
+     ========================================================================== -->
+<div class="screen-panel" id="presentationScreen" role="dialog" aria-modal="true" aria-label="Apresentação em slides">
+  <button type="button" class="screen-close" id="presentationClose" aria-label="Voltar ao menu principal">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+
+  <div class="screen-deck-wrap">
+    <div class="deck" id="presoDeck">
+      <div class="deck-track" id="presoDeckTrack">
+
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-01.webp" alt="Slide 1 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-02.webp" alt="Slide 2 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-03.webp" alt="Slide 3 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-04.webp" alt="Slide 4 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-05.webp" alt="Slide 5 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-06.webp" alt="Slide 6 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-07.webp" alt="Slide 7 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-08.webp" alt="Slide 8 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-09.webp" alt="Slide 9 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-10.webp" alt="Slide 10 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-11.webp" alt="Slide 11 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-12.webp" alt="Slide 12 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-13.webp" alt="Slide 13 da apresentação">
+        </div>
+        <div class="slide slide--image" data-preso-slide>
+          <img class="preso-slide-img" src="../assets/apresentacao/slide-14.webp" alt="Slide 14 da apresentação">
+        </div>
+
+      </div>
+
+      <button class="deck-nav deck-prev" id="presoPrev" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="deck-nav deck-next" id="presoNext" aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <button type="button" class="screen-fullscreen" id="presentationFullscreen" aria-label="Ver em tela cheia">
+    <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+  </button>
+  <button type="button" class="screen-exit-fullscreen" id="presentationExitFullscreen" aria-label="Sair da tela cheia">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- ==========================================================================
+     PAINEL — GALERIA DE FOTOS (aberto pelo botão PLAY espelhado do hero)
+     ========================================================================== -->
+<div class="screen-panel" id="galleryScreen" role="dialog" aria-modal="true" aria-label="Galeria de fotos">
+  <button type="button" class="screen-back" id="galleryClose" aria-label="Voltar ao menu principal">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+
+  <div class="gallery-header">
+    <img src="../assets/logos/logo-federacao-pe.svg" alt="Federação Pernambucana de Kettlebell Sport">
+  </div>
+
+  <div class="gallery-body">
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</div>
+
+<!-- Lightbox — visualização ampliada das fotos da Galeria -->
+<div class="lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Visualizador de foto ampliada">
+  <button class="lightbox-close" id="galleryLightboxClose" aria-label="Fechar">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" id="galleryLightboxPrev" aria-label="Foto anterior">
+    <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <img class="lightbox-img" id="galleryLightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" id="galleryLightboxNext" aria-label="Próxima foto">
+    <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ==========================================================================
+     MODAL — ESTRUTURA & CRONOGRAMA
+     ========================================================================== -->
+<div class="modal" id="modal-estrutura" role="dialog" aria-modal="true" aria-label="Cronograma e estrutura solicitada">
+  <div class="modal-topbar">
+    <p class="modal-title">Cronograma &amp; Estrutura</p>
+    <button class="modal-close" data-close-modal aria-label="Fechar">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="modal-body structure-scroller">
+    <div class="structure-wrap">
+      <div>
+        <p class="eyebrow" style="margin-bottom:16px;">Cronograma — 19 a 22 de novembro de 2026</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <p class="timeline-date">19 <span>NOV</span></p>
+            <p class="timeline-activity">Montagem da estrutura esportiva e técnica</p>
+            <p class="timeline-note">8h às 15h</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">20 <span>NOV</span></p>
+            <p class="timeline-activity">1º dia de competições</p>
+            <p class="timeline-note">7h às 18h · feriado nacional, o que reduz o impacto na rotina regular de atividades do clube</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">21 <span>NOV</span></p>
+            <p class="timeline-activity">2º dia de competições</p>
+            <p class="timeline-note">7h às 18h</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">22 <span>NOV</span></p>
+            <p class="timeline-activity">3º dia de competições e desmontagem</p>
+            <p class="timeline-note">7h às 17h</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="structure-title">O que estamos solicitando</h3>
+        <div class="req-carousel" id="reqCarousel">
+          <div class="req-track" id="reqTrack">
+            <div class="req-card" data-req>
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span>Ginásio poliesportivo para arena, aquecimento e transmissão</span>
+            </div>
+            <div class="req-card" data-req>
+              <svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 10c4.4 0 8 2.2 8 5v2H4v-2c0-2.8 3.6-5 8-5z"/></svg>
+              <span>Vestiários para atletas, equipe técnica e organização</span>
+            </div>
+            <div class="req-card" data-req>
+              <svg viewBox="0 0 24 24"><path d="M7 3h10v2H7zM6 7h12l-1 14H7L6 7z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span>Banheiros e bebedouros disponíveis no local</span>
+            </div>
+            <div class="req-card" data-req>
+              <svg viewBox="0 0 24 24"><path d="M4 4h16v6H4zm0 10h16v6H4z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span>Salas de apoio para organização, arbitragem e reuniões</span>
+            </div>
+            <div class="req-card" data-req>
+              <svg viewBox="0 0 24 24"><path d="M3 13h4l2-5h6l2 5h4v6H3z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span>Vagas de estacionamento para carga e descarga</span>
+            </div>
+            <div class="req-card" data-req>
+              <svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 9 8 10 4.6-1 8-5 8-10V6l-8-4z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span>Segurança patrimonial durante a permanência dos equipamentos</span>
+            </div>
+          </div>
+          <button class="req-nav req-prev" data-req-prev aria-label="Requisito anterior">
+            <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="req-nav req-next" data-req-next aria-label="Próximo requisito">
+            <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="req-dots" id="reqDots"></div>
+        </div>
+        <p class="timeline-note" style="margin-top:16px;max-width:70ch;">A estrutura permanece montada durante todo o evento. A depender do modelo de montagem adotado, apenas uma pequena parte do ginásio fica com acesso restrito, permitindo — se operacionalmente viável — o uso simultâneo do restante do espaço pelos sócios e frequentadores do clube.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     MODAL — CONTATO
+     ========================================================================== -->
+<div class="modal" id="modal-contato" role="dialog" aria-modal="true" aria-label="Fale com a organização">
+  <div class="modal-topbar">
+    <p class="modal-title">Fale Conosco</p>
+    <button class="modal-close" data-close-modal aria-label="Fechar">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="modal-body contact-scroller">
+    <div class="contact-wrap">
+      <p class="eyebrow">Vamos conversar</p>
+      <h2 class="contact-title">Estamos à disposição para apresentar o projeto <em>pessoalmente</em></h2>
+      <p class="contact-body">A CONBRAKS e a FPEKSPORT podem apresentar a proposta presencialmente à Secretaria de Esportes de Pernambuco (SESP-PE), esclarecer dúvidas e alinhar todos os aspectos necessários ao apoio institucional para a realização do campeonato.</p>
+      <div class="contact-actions">
+        <a class="btn" href="mailto:ctjeffersonlobo@gmail.com?subject=Apoio%20Institucional%20CONBRAKS%202026%20-%20SESP-PE">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm2 2v.01L12 12l6-5.99V6H6zM6 8.5V18h12V8.5l-6 5-6-5z"/></svg>
+          Enviar E-mail
+        </a>
+        <a class="btn btn-outline" href="https://wa.me/5581996484250" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14.3c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.2-.8-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.3-.3.6-.3.8-.3h.5c.2 0 .4 0 .6.5.2.6.7 1.9.8 2 .1.2.1.4 0 .6-.5 1-1 .9-.5 1.7 1 1.6 2 2.1 3.5 2.8.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1l1.9.9c.2.1.4.2.5.3.1.3.1.9-.1 1.5z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="contact-columns">
+        <div class="contact-column">
+          <p class="contact-column-title">Redes Sociais</p>
+          <a href="https://instagram.com/conbraks" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.8 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            @conbraks
+          </a>
+          <a href="https://instagram.com/fpeksport" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.8 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            @fpeksport
+          </a>
+          <a href="https://www.instagram.com/wksf_brasil" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.8 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            @wksf_brasil
+          </a>
+          <a href="https://instagram.com/jeffersonlobokettlebell" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.8 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            @jeffersonlobokettlebell
+          </a>
+        </div>
+        <div class="contact-column">
+          <p class="contact-column-title">Sites</p>
+          <a href="https://fedpernambucanakettlebellsport.com/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.94 9h-3.1a15.6 15.6 0 0 0-1.18-5.23A8.02 8.02 0 0 1 19.94 11zM12 4.06c.83 1.2 1.9 3.36 2.24 6.94H9.76c.34-3.58 1.41-5.74 2.24-6.94zM9.76 13h4.48c-.34 3.58-1.41 5.74-2.24 6.94-.83-1.2-1.9-3.36-2.24-6.94zM8.34 5.77A15.6 15.6 0 0 0 7.16 11h-3.1a8.02 8.02 0 0 1 4.28-5.23zM4.06 13h3.1c.14 2.03.55 3.83 1.18 5.23A8.02 8.02 0 0 1 4.06 13zm11.6 5.23c.63-1.4 1.04-3.2 1.18-5.23h3.1a8.02 8.02 0 0 1-4.28 5.23z"/></svg>
+            FPEKSPORT
+          </a>
+          <a href="https://www.conbraks.com.br/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.94 9h-3.1a15.6 15.6 0 0 0-1.18-5.23A8.02 8.02 0 0 1 19.94 11zM12 4.06c.83 1.2 1.9 3.36 2.24 6.94H9.76c.34-3.58 1.41-5.74 2.24-6.94zM9.76 13h4.48c-.34 3.58-1.41 5.74-2.24 6.94-.83-1.2-1.9-3.36-2.24-6.94zM8.34 5.77A15.6 15.6 0 0 0 7.16 11h-3.1a8.02 8.02 0 0 1 4.28-5.23zM4.06 13h3.1c.14 2.03.55 3.83 1.18 5.23A8.02 8.02 0 0 1 4.06 13zm11.6 5.23c.63-1.4 1.04-3.2 1.18-5.23h3.1a8.02 8.02 0 0 1-4.28 5.23z"/></svg>
+            CONBRAKS
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/ytplayer.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- ============ Botões PLAY, Apresentação e Galeria (exclusivo desta página) ============ -->
+<script>
+(function () {
+  /* Mostra os botões PLAY assim que o hero é revelado (mesmo instante em
+     que o header e o dock de ações aparecem, controlado pelo main.js). */
+  var heroEl = document.getElementById('hero');
+  var playGroup = document.getElementById('heroPlayGroup');
+  if (heroEl && playGroup) {
+    var revealObserver = new MutationObserver(function () {
+      playGroup.classList.toggle('is-visible', heroEl.classList.contains('is-revealed'));
+    });
+    revealObserver.observe(heroEl, { attributes: true, attributeFilter: ['class'] });
+    if (heroEl.classList.contains('is-revealed')) playGroup.classList.add('is-visible');
+  }
+
+  /* ------------------------------------------------------------------------
+     PAINEL — Apresentação em slides
+     ------------------------------------------------------------------------ */
+  var pageShell = document.getElementById('pageShell');
+  var presoScreen = document.getElementById('presentationScreen');
+  var presoPlayBtn = document.getElementById('presentationPlayBtn');
+  var presoCloseBtn = document.getElementById('presentationClose');
+  var presoTrack = document.getElementById('presoDeckTrack');
+  var presoSlides = Array.prototype.slice.call(presoTrack.querySelectorAll('[data-preso-slide]'));
+  var presoIndex = 0;
+  var presoLastFocused = null;
+
+  function updatePreso() {
+    presoTrack.style.transform = 'translateX(-' + (presoIndex * 100) + '%)';
+  }
+  function goPreso(i) {
+    presoIndex = Math.min(presoSlides.length - 1, Math.max(0, i));
+    updatePreso();
+  }
+
+  document.getElementById('presoPrev').addEventListener('click', function () { goPreso(presoIndex - 1); });
+  document.getElementById('presoNext').addEventListener('click', function () { goPreso(presoIndex + 1); });
+
+  function openPreso() {
+    presoLastFocused = document.activeElement;
+    presoScreen.classList.add('is-open');
+    pageShell.classList.add('is-shifted');
+    document.body.style.overflow = 'hidden';
+    presoCloseBtn.focus();
+  }
+  function closePreso() {
+    presoScreen.classList.remove('is-open');
+    pageShell.classList.remove('is-shifted');
+    document.body.style.overflow = '';
+    if (document.fullscreenElement && presoScreen.contains(document.fullscreenElement)) {
+      (document.exitFullscreen || document.webkitExitFullscreen || function () {}).call(document);
+    }
+    if (presoLastFocused) presoLastFocused.focus();
+  }
+
+  presoPlayBtn.addEventListener('click', openPreso);
+  presoCloseBtn.addEventListener('click', closePreso);
+
+  document.getElementById('presentationFullscreen').addEventListener('click', function () {
+    var request = presoScreen.requestFullscreen || presoScreen.webkitRequestFullscreen || presoScreen.msRequestFullscreen;
+    if (request) request.call(presoScreen);
+  });
+  document.getElementById('presentationExitFullscreen').addEventListener('click', function () {
+    (document.exitFullscreen || document.webkitExitFullscreen || function () {}).call(document);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!presoScreen.classList.contains('is-open')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); goPreso(presoIndex + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goPreso(presoIndex - 1); }
+    // ESC sai da tela cheia primeiro (comportamento nativo do navegador);
+    // só fecha o painel se já não estiver em tela cheia.
+    if (e.key === 'Escape' && !document.fullscreenElement) closePreso();
+  });
+
+  /* ------------------------------------------------------------------------
+     PAINEL — Galeria de fotos
+     ------------------------------------------------------------------------ */
+  var galleryScreen = document.getElementById('galleryScreen');
+  var galleryPlayBtn = document.getElementById('galleryPlayBtn');
+  var galleryCloseBtn = document.getElementById('galleryClose');
+  var galleryGrid = document.getElementById('galleryGrid');
+  var galleryLastFocused = null;
+
+  var galleryImages = [
+    'IMG-20240327-WA0025_mini.webp',
+    'IMG-20240327-WA0030_mini.webp',
+    'IMG_9913_mini.webp',
+    'fpeksport_21568626_220963651770177_1464715849460875264_n_mini.webp',
+    'fpeksport_30079387_1293759284090150_611161498189824000_n-1_mini.webp',
+    'fpeksport_36950106_1892434420844320_3758824097488830464_n_mini.webp',
+    'fpeksport_40813915_388564558572213_2201750596968039762_n_mini.webp',
+    'fpeksport_41555093_660133567713708_3800001616553040438_n_mini.webp',
+    'fpeksport_41733573_323667698192098_39948034838025311_n_mini.webp',
+    'fpeksport_41869637_272916166680963_5336583906263093506_n_mini.webp',
+    'fpeksport_41972327_2266773806879257_6291103881783967872_n_mini.webp',
+    'fpeksport_42002680_2152790914984317_4131428292040406700_n_mini.webp',
+    'fpeksport_42002723_466441577210505_5875970300647255578_n_mini.webp',
+    'fpeksport_42078416_306476683205873_1331639675773732509_n_mini.webp',
+    'fpeksport_42157200_148080066143788_9108683147176552617_n_mini.webp',
+    'fpeksport_42368264_2206620766326556_9084290179095292853_n_mini.webp',
+    'fpeksport_42611557_2190502604357348_1680717125603654070_n_mini.webp',
+    'fpeksport_42831898_242651726407560_8003349988770819064_n_mini.webp',
+    'fpeksport_43985572_1267487050060582_267249106122675754_n_mini.webp',
+    'fpeksport_49933618_2231482897108323_7338918054663785338_n_mini.webp',
+    'fpeksport_49983615_219194672250183_2430227731017137879_n_mini.webp',
+    'fpeksport_61707966_314399276150778_5480033350560396846_n_mini.webp',
+    'fpeksport_67497380_1843481122464002_2910611882376467076_n_mini.webp',
+    'fpeksport_68977189_122406432474287_8883861060846321106_n_mini.webp',
+    'fpeksport_69237158_2468973426756551_7842780791789876930_n_mini.webp',
+    'fpeksport_69322057_644290446061006_3565733735826436867_n_mini.webp',
+    'fpeksport_69346679_127112948591062_8293071916405434419_n_mini.webp',
+    'fpeksport_69437160_190989995246473_4197085051773963284_n_mini.webp',
+    'fpeksport_69825620_128569765110754_1207533087707267579_n_mini.webp',
+    'fpeksport_69878255_134062224525147_411735237440791326_n_mini.webp'
+  ];
+
+  var galleryLightbox = document.getElementById('galleryLightbox');
+  var galleryLightboxImg = document.getElementById('galleryLightboxImg');
+  var galleryIndex = 0;
+
+  function showGalleryPhoto(i) {
+    galleryIndex = (i + galleryImages.length) % galleryImages.length;
+    galleryLightboxImg.src = '../assets/galeria/' + galleryImages[galleryIndex];
+    galleryLightboxImg.alt = 'Foto da Federação Pernambucana de Kettlebell Sport';
+  }
+  function openGalleryLightbox(i) {
+    showGalleryPhoto(i);
+    galleryLightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeGalleryLightbox() {
+    galleryLightbox.classList.remove('is-open');
+    document.body.style.overflow = galleryScreen.classList.contains('is-open') ? 'hidden' : '';
+  }
+
+  galleryImages.forEach(function (file, i) {
+    var item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'gallery-item';
+    item.setAttribute('aria-label', 'Ampliar foto ' + (i + 1));
+    var img = document.createElement('img');
+    img.src = '../assets/galeria/' + file;
+    img.alt = 'Foto da Federação Pernambucana de Kettlebell Sport';
+    img.loading = 'lazy';
+    item.appendChild(img);
+    item.addEventListener('click', function () { openGalleryLightbox(i); });
+    galleryGrid.appendChild(item);
+  });
+
+  function openGallery() {
+    galleryLastFocused = document.activeElement;
+    galleryScreen.classList.add('is-open');
+    pageShell.classList.add('is-shifted');
+    document.body.style.overflow = 'hidden';
+    galleryCloseBtn.focus();
+  }
+  function closeGallery() {
+    galleryScreen.classList.remove('is-open');
+    pageShell.classList.remove('is-shifted');
+    document.body.style.overflow = galleryLightbox.classList.contains('is-open') ? 'hidden' : '';
+    if (galleryLastFocused) galleryLastFocused.focus();
+  }
+
+  galleryPlayBtn.addEventListener('click', openGallery);
+  galleryCloseBtn.addEventListener('click', closeGallery);
+
+  document.getElementById('galleryLightboxClose').addEventListener('click', closeGalleryLightbox);
+  document.getElementById('galleryLightboxPrev').addEventListener('click', function () { showGalleryPhoto(galleryIndex - 1); });
+  document.getElementById('galleryLightboxNext').addEventListener('click', function () { showGalleryPhoto(galleryIndex + 1); });
+  galleryLightbox.addEventListener('click', function (e) {
+    if (e.target === galleryLightbox) closeGalleryLightbox();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (galleryLightbox.classList.contains('is-open')) {
+      if (e.key === 'Escape') closeGalleryLightbox();
+      if (e.key === 'ArrowRight') showGalleryPhoto(galleryIndex + 1);
+      if (e.key === 'ArrowLeft') showGalleryPhoto(galleryIndex - 1);
+      return;
+    }
+    if (galleryScreen.classList.contains('is-open') && e.key === 'Escape') closeGallery();
+  });
+})();
+</script>
+
+<!-- ============ SELO KUPIM DIGITAL ============ -->
+<div id="kupim-badge-wrap">
+  <a
+    id="kupim-badge"
+    href="https://www.linkedin.com/in/allanlauzid/"
+    target="_blank"
+    rel="noopener"
+    aria-label="Uma criação de Kupim Digital. Clique para falar conosco."
+  >
+    <span class="k-logo-spacer" aria-hidden="true"></span>
+    <span class="badge-text">© <span class="kupim-year">2026</span> <b>Jefferson Lôbo</b>. Todos os direitos reservados.<br>Uma criação de <b>Kupim Digital</b>.</span>
+  </a>
+  <span class="k-logo-wrap" aria-hidden="true">
+    <svg viewBox="0 0 80.339996 68.730003" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="k-fill-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop id="k-stop-1" offset="0%" stop-color="#eff3f8"/>
+          <stop id="k-stop-2" offset="100%" stop-color="#eff3f8"/>
+        </linearGradient>
+      </defs>
+      <path d="m 13.66,16.47 c 7.19,-0.43 14.44,-0.34 21.63,-0.04 -0.24,8.15 0,16.3 -0.14,24.45 C 44.4,32.62 53.53,24.22 62.99,16.19 71.94,16.35 80.9,16.03 89.85,16.38 83.67,21.31 78.35,27.2 72.22,32.19 68.1,35.71 64.48,39.82 60.09,43 71.83,56.41 82.59,70.68 93.98,84.4 91.4,85.16 88.68,84.79 86.03,84.85 79.75,84.76 73.47,85.02 67.2,84.71 59.87,75.36 52.54,66.01 44.97,56.86 c -3.63,2.59 -6.28,6.29 -9.84,9 0.14,6.27 -0.03,12.54 0.12,18.81 -7.19,0.24 -14.43,0.42 -21.61,-0.1 0.34,-22.69 0.3,-45.41 0.02,-68.1 z" transform="translate(-13.640002,-16.175853)" fill="url(#k-fill-gradient)"/>
+    </svg>
+  </span>
+</div>
+<!-- ============ FIM DO SELO ============ -->
+
+<script>
+  // Selo Kupim Digital — ano dinâmico, sincroniza o deslocamento do K
+  // com a largura da pílula e trata o toque no mobile.
+  (function(){
+    var wrap = document.getElementById('kupim-badge-wrap');
+    var badge = document.getElementById('kupim-badge');
+    if (!wrap || !badge) return;
+
+    document.querySelectorAll('.kupim-year').forEach(function(el){
+      el.textContent = new Date().getFullYear();
+    });
+
+    function updateShift(){
+      var full = badge.scrollWidth;
+      wrap.style.setProperty('--k-shift', Math.max(full - 44, 0) + 'px');
+    }
+    updateShift();
+    window.addEventListener('load', updateShift);
+    window.addEventListener('resize', updateShift);
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(updateShift);
+    }
+    requestAnimationFrame(function(){ requestAnimationFrame(updateShift); });
+
+    var isTouch = matchMedia('(hover: none)').matches;
+    if(!isTouch) return;
+
+    badge.addEventListener('click', function(e){
+      if(!wrap.classList.contains('is-open')){
+        e.preventDefault();
+        wrap.classList.add('is-open');
+        document.addEventListener('click', function closeOnce(ev){
+          if(!wrap.contains(ev.target)){
+            wrap.classList.remove('is-open');
+            document.removeEventListener('click', closeOnce);
+          }
+        });
+      }
+    });
+  })();
+</script>
+</body>
+</html>

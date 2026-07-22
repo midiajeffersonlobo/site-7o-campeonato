@@ -8,16 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
      1) HERO — vídeo de fundo (ambiente) + revelação do header/dock após 5s
      ------------------------------------------------------------------------ */
 
-  const HERO_VIDEO = { id: '6fK-rtPlfxY', start: 7642, end: 7724 }; // close-background
-
-  const heroPlayer = new LockedYTPlayer({
-    elementId: 'hero-yt-player',
-    videoId: HERO_VIDEO.id,
-    start: HERO_VIDEO.start,
-    end: HERO_VIDEO.end,
-    ambient: true,
-    loop: true,
-  });
+  const heroVideoEl = document.getElementById('hero-yt-player');
+  const heroPlayer = heroVideoEl
+    ? new LocalClipPlayer({ videoEl: heroVideoEl, ambient: true, loop: true })
+    : null;
 
   const hero = document.getElementById('hero');
   const heroVideoWrap = document.getElementById('heroVideoWrap');
@@ -322,11 +316,8 @@ document.addEventListener('DOMContentLoaded', () => {
     deckInitialized = true;
     updateDeckUI();
 
-    proposalPlayer = new LockedYTPlayer({
-      elementId: 'proposalVideoYT',
-      videoId: 'Ta0sR3fTbDI',
-      start: 3560,
-      end: 4178,
+    proposalPlayer = new LocalClipPlayer({
+      videoEl: document.getElementById('proposalVideoYT'),
       ambient: false,
       loop: false,
     });
@@ -551,47 +542,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mediaPlayersInitialized) return;
     mediaPlayersInitialized = true;
 
-    document.querySelectorAll('[data-media-player]').forEach((container, i) => {
-      const videoId = container.getAttribute('data-video-id');
-      const start = parseFloat(container.getAttribute('data-start'));
-      const end = parseFloat(container.getAttribute('data-end'));
-      const ytTarget = container.querySelector('.locked-player-yt');
-      const uniqueId = `media-yt-${i}`;
-      ytTarget.id = uniqueId;
+    document.querySelectorAll('[data-media-player]').forEach((container) => {
+      const videoEl = container.querySelector('.locked-player-yt');
+      if (!videoEl) return;
 
-      // Thumbnail do YouTube como pôster, visível enquanto o vídeo está
-      // pausado (evita a tela preta antes do primeiro play). Precisa ser
-      // uma <img> real: um background-image no próprio iframe não aparece,
-      // porque a página do YouTube carregada dentro dele é opaca e cobre
-      // qualquer fundo do elemento. O poster fica posicionado por cima do
-      // player e some sozinho quando o vídeo começa a tocar pela primeira
-      // vez (via .is-ready, que o ytplayer.js já adiciona no elemento).
-      const poster = document.createElement('img');
-      poster.className = 'locked-player-poster';
-      poster.alt = '';
-      poster.loading = 'lazy';
-      poster.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-      ytTarget.insertAdjacentElement('afterend', poster);
-
-      // Ícone de play centralizado sobre a miniatura — clicar nela (ou no
-      // ícone) inicia o vídeo, igual a qualquer player de vídeo comum.
+      // Ícone de play centralizado sobre o vídeo — some assim que o
+      // primeiro play acontece (via .is-ready, adicionado pelo LocalClipPlayer).
       const posterPlay = document.createElement('button');
       posterPlay.type = 'button';
       posterPlay.className = 'locked-player-poster-play';
       posterPlay.setAttribute('aria-label', 'Reproduzir vídeo');
       posterPlay.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-      poster.insertAdjacentElement('afterend', posterPlay);
+      videoEl.insertAdjacentElement('afterend', posterPlay);
 
-      const player = new LockedYTPlayer({
-        elementId: uniqueId,
-        videoId,
-        start,
-        end,
+      const player = new LocalClipPlayer({
+        videoEl,
         ambient: false,
         loop: false,
       });
 
-      poster.addEventListener('click', () => player.play());
       posterPlay.addEventListener('click', () => player.play());
 
       wireLockedPlayerControls(container, player);
@@ -599,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     6) Controles customizados reutilizáveis para LockedYTPlayer
+     6) Controles customizados reutilizáveis para LocalClipPlayer
      ------------------------------------------------------------------------ */
 
   function formatTime(sec) {
