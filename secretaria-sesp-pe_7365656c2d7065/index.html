@@ -718,6 +718,33 @@
       <div class="media-item type-video is-wide">
         <div class="locked-player" data-media-player>
         <video class="locked-player-yt" playsinline preload="metadata" muted>
+          <source src="../assets/videos/reportagem.webm" type="video/webm">
+          <source src="../assets/videos/reportagem.mp4" type="video/mp4">
+        </video>
+          <span class="locked-player-badge">Reportagem</span>
+          <div class="locked-player-controls">
+            <button class="locked-player-btn" data-video-seek="-10" aria-label="Voltar 10 segundos">
+              <svg viewBox="0 0 24 24"><path d="M11 18V6l-8 6 8 6zm2-12v12l8-6-8-6z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-toggle aria-label="Reproduzir ou pausar">
+              <svg data-icon-play viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg data-icon-pause viewBox="0 0 24 24" style="display:none"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <button class="locked-player-btn" data-video-seek="10" aria-label="Avançar 10 segundos">
+              <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
+            </button>
+            <div class="locked-player-bar" data-video-bar><div class="locked-player-bar-fill" data-video-fill></div></div>
+            <span class="locked-player-time" data-video-time>0:00</span>
+            <button class="locked-player-btn is-ghost" data-video-fullscreen aria-label="Ver em tela cheia">
+              <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm16 0h-2v4h-4v2h6v-6z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-item type-video is-wide">
+        <div class="locked-player" data-media-player>
+        <video class="locked-player-yt" playsinline preload="metadata" muted>
           <source src="../assets/videos/boxes.webm" type="video/webm">
           <source src="../assets/videos/boxes.mp4" type="video/mp4">
         </video>
