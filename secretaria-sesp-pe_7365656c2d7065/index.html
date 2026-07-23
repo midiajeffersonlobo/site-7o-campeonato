@@ -93,6 +93,16 @@
     .hero-play-group { gap: 20px; }
   }
 
+  /* ---- Botão "Pular vídeo" e dica de tecla espaço: opacidade fixa em
+         0.9 (sem variação parado/hover), cor verde escuro ---- */
+  .hero-skip { opacity: 0.9; color: var(--green-700); }
+  .hero-skip:hover, .hero-skip:focus-visible { opacity: 0.9; color: var(--green-700); }
+  .hero-spacebar-hint {
+    opacity: 0.9;
+    filter: invert(23%) sepia(94%) saturate(1352%) hue-rotate(93deg) brightness(94%) contrast(101%);
+  }
+  .hero-skip.is-hidden + .hero-spacebar-hint { opacity: 0; }
+
   /* ---- Pular vídeo do hero clicando em qualquer parte da tela (não só
          no lado direito, como no comportamento padrão do template) ---- */
   #heroSkipZone { left: 0; width: 100%; }
@@ -360,6 +370,7 @@
     Pular vídeo
     <svg viewBox="0 0 24 24"><path d="M13 18V6l8 6-8 6zM11 6v12L3 12l8-6z"/></svg>
   </button>
+  <div class="hero-spacebar-hint" id="heroSpacebarHint" aria-hidden="true"></div>
 
   <svg class="hero-diagonals" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
     <polygon points="0,620 1000,420 1000,460 0,660" fill="#087752" opacity="0.35"/>
