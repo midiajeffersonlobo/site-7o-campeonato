@@ -1185,6 +1185,8 @@ a { color: inherit; }
 
   .slide-inner-tour .slide-num {
     margin-bottom: -0.3em;
+    position: relative;
+    top: -10px;
   }
 
   .slide.slide-tour .slide-body {
@@ -2451,6 +2453,16 @@ a { color: inherit; }
   right:0;
   z-index:9999;
   height:64px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-hero) var(--ease-hero) 200ms,
+              transform var(--duration-hero) var(--ease-hero) 200ms;
+}
+/* Some visível só depois que o vídeo de abertura termina (ou é pulado),
+   junto com o resto do hero — controlado via JS (revealSite() em main.js). */
+#kupim-badge-wrap.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 /* Só aparece no menu principal (hero) — some quando qualquer modal
    (Proposta, Documento, Mídia, Estrutura, Contato, etc.) está aberto. */

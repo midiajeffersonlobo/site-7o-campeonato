@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const actionDock = document.getElementById('actionDock');
   const heroSkipBtn = document.getElementById('heroSkip');
   const heroSkipZone = document.getElementById('heroSkipZone');
+  const kupimBadgeWrap = document.getElementById('kupim-badge-wrap');
 
   let heroRevealed = false;
   let heroTimerId = null;
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     heroScrollHint.classList.add('is-visible');
     siteHeader.classList.add('is-visible');
     actionDock.classList.add('is-visible');
+    if (kupimBadgeWrap) kupimBadgeWrap.classList.add('is-visible');
 
     if (heroSkipBtn) heroSkipBtn.classList.add('is-hidden');
     if (heroSkipZone) heroSkipZone.classList.add('is-hidden');
