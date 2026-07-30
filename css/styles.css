@@ -1134,6 +1134,78 @@ a { color: inherit; }
   }
 }
 
+/* Botão "Ver no Google Maps" — só aparece na versão mobile, onde o embed
+   do street view não carrega de forma confiável. */
+.street-view-mobile-btn {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .street-view-mobile-btn {
+    display: inline-flex;
+    margin-top: 12px;
+  }
+}
+
+/* Slide 5 mobile: encolhe só o texto branco (parágrafo), pra sobrar
+   espaço pro botão do Google Maps aparecer sem precisar rolar tanto.
+   Escopado à media query — não afeta a versão desktop. */
+@media (max-width: 900px) {
+  .slide.slide-tour .slide-body {
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .tour-logo {
+    width: 72px;
+    order: 2;
+  }
+
+  .street-view-mobile-btn {
+    display: none;
+  }
+
+  .street-view-wrap .eyebrow {
+    display: none;
+  }
+
+  .tour-header-row {
+    justify-content: space-between;
+  }
+
+  .slide.slide-tour .slide-tag {
+    order: 1;
+  }
+
+  .slide-inner-tour .slide-title {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  .slide-inner-tour .slide-num {
+    margin-bottom: -0.3em;
+  }
+
+  .slide.slide-tour .slide-body {
+    margin-bottom: 6px;
+  }
+
+  .street-view-wrap {
+    margin-top: 0;
+  }
+
+  .street-view-wrap .eyebrow {
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  .street-view-frame {
+    height: 200px;
+  }
+}
+
 /* Slide de vídeo dentro do deck */
 .slide-video-frame {
   margin-top: var(--space-md);
