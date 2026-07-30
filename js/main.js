@@ -120,6 +120,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ------------------------------------------------------------------------
+     2a) ATALHO OCULTO — 20 cliques em "Recife/PE" abrem todos os links
+     ------------------------------------------------------------------------ */
+
+  (function initSecretLinks() {
+    const triggers = Array.from(document.querySelectorAll('[data-secret-links-trigger]'));
+    if (!triggers.length) return;
+
+    let clickCount = 0;
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        clickCount += 1;
+        if (clickCount < 20) return;
+
+        clickCount = 0;
+        openModal('modal-links');
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('[data-secret-links-trigger]')) clickCount = 0;
+    });
+
+    document.querySelectorAll('[data-copy-url]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const url = button.getAttribute('data-copy-url');
+        if (!url) return;
+
+        try {
+          let copied = false;
+
+          if (navigator.clipboard && window.isSecureContext) {
+            try {
+              await navigator.clipboard.writeText(url);
+              copied = true;
+            } catch (error) {
+              copied = false;
+            }
+          }
+
+          if (!copied) {
+            const field = document.createElement('textarea');
+            field.value = url;
+            field.setAttribute('readonly', '');
+            field.style.position = 'fixed';
+            field.style.opacity = '0';
+            document.body.appendChild(field);
+            field.select();
+            copied = document.execCommand('copy');
+            field.remove();
+          }
+
+          if (!copied) throw new Error('copy-failed');
+
+          const originalLabel = button.textContent;
+          button.textContent = 'Copiado!';
+          window.setTimeout(() => { button.textContent = originalLabel; }, 1400);
+        } catch (error) {
+          button.textContent = 'Erro';
+          window.setTimeout(() => { button.textContent = 'Copiar'; }, 1400);
+        }
+      });
+    });
+  })();
+
   document.addEventListener('keydown', (e) => {
     const openLightbox = ['mediaLightbox', 'editionsLightbox', 'videoLightbox'].find((id) => {
       const el = document.getElementById(id);

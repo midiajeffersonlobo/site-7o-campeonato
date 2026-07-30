@@ -291,6 +291,35 @@ a { color: inherit; }
 .hero-meta span { display: flex; align-items: center; gap: 0.5em; }
 .hero-meta svg { width: 1.1em; height: 1.1em; fill: var(--yellow-400); flex-shrink: 0; }
 
+.secret-links-trigger {
+  appearance: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-transform: inherit;
+  cursor: inherit;
+}
+
+.secret-links-trigger--hero {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.secret-links-trigger:focus-visible {
+  outline: 2px solid var(--yellow-400);
+  outline-offset: 4px;
+}
+
 .hero-scroll-hint {
   position: absolute;
   bottom: var(--space-md);
@@ -669,6 +698,78 @@ a { color: inherit; }
   flex: 1;
   min-height: 0;
   position: relative;
+}
+
+/* ---- Painel oculto de atalhos ---- */
+.secret-links-body {
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 64px) var(--gutter);
+}
+
+.secret-links-panel {
+  width: min(760px, 100%);
+  border: 1px solid rgba(230,192,9,0.3);
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(249,248,246,0.04);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.28);
+}
+
+.secret-link-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: clamp(8px, 2vw, 16px);
+  padding: clamp(14px, 2vw, 20px);
+  border-bottom: 1px solid rgba(249,248,246,0.1);
+}
+
+.secret-link-row:last-child { border-bottom: 0; }
+
+.secret-link-name {
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 2vw, 1.08rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.secret-link-action {
+  min-width: 76px;
+  padding: 9px 12px;
+  border: 1px solid var(--yellow-500);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.secret-link-action:hover,
+.secret-link-action:focus-visible {
+  background: var(--yellow-500);
+  color: var(--navy-950);
+}
+
+@media (max-width: 520px) {
+  .secret-link-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .secret-link-name {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ---- Slide deck (Proposta resumida) ---- */
