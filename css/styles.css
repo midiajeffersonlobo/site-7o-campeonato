@@ -570,6 +570,7 @@ a { color: inherit; }
   transition: transform var(--duration-fast) var(--ease-sport), background var(--duration-fast) var(--ease-sport), color var(--duration-fast) var(--ease-sport);
   background: var(--yellow-500);
   color: var(--navy-950);
+  text-decoration: none;
 }
 .btn:hover, .btn:focus-visible { transform: translateY(-2px); background: var(--yellow-light); }
 
@@ -706,15 +707,31 @@ a { color: inherit; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,25,78,0.55) 0%, rgba(0,25,78,0.55) 30%, rgba(0,25,78,0.96) 100%);
+  background: linear-gradient(180deg, rgba(0,25,78,0.55) 0%, rgba(0,25,78,0.55) 50%, rgba(0,25,78,0.96) 100%);
 }
 
 .slide-bg.tone-navy::after { background: linear-gradient(160deg, rgba(0,25,78,0.97), rgba(7,60,121,0.9)); }
+.slide-bg.tone-navy-lr::after { background: linear-gradient(90deg, rgba(0,25,78,1) 0%, rgba(0,25,78,1) 30%, rgba(7,60,121,0.5) 100%); }
 .slide-bg.tone-yellow::after { background: linear-gradient(160deg, rgba(230,192,9,0.94), rgba(230,192,9,0.8)); }
 .slide-bg.tone-green::after { background: linear-gradient(160deg, rgba(7,119,50,0.93), rgba(7,60,121,0.85)); }
 
 .slide-bg-zoom { background-size: 130%; background-position: center 15%; }
-.slide-bg-top { background-position: center top; opacity: 0.7; }
+.slide-bg-top { background-position: center; opacity: 0.7; }
+
+.slide-bg.slide-8-pos { background-position: center -30px; }
+.slide-bg.slide-12-pos { background-position: center 15px; }
+
+/* Slide 8: centraliza verticalmente todo o conjunto (número, título, lista),
+   sobrepondo o align-items:flex-end padrão do .slide. */
+.slide.slide-cronograma-center { align-items: center; }
+
+/* Slide 12: desce só o número e o título (sem empurrar o parágrafo/vídeo
+   abaixo, já que position:relative não afeta o fluxo dos demais irmãos). */
+.slide.slide-video-shift .slide-num,
+.slide.slide-video-shift .slide-title {
+  position: relative;
+  top: 24px;
+}
 
 /* Slide 12: reforço extra de sombra do lado esquerdo (onde fica o texto),
    além do gradiente vertical padrão do ::after — some por completo na
@@ -971,6 +988,151 @@ a { color: inherit; }
   color: var(--navy-950);
 }
 .edition-expand svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* Slide 5 — tour virtual 360° (Street View) do ginásio da UNINASSAU.
+   Reaproveita a mesma ideia de moldura do slide de vídeo, mas com largura
+   maior (o slide inteiro fica sem foto de fundo, então sobra espaço) e
+   proporção 16:9 travada via aspect-ratio, com um teto de altura pra não
+   estourar a área visível do slide (que tem overflow:hidden). */
+/* Esse slide não tem foto de fundo nem precisa ficar ancorado embaixo
+   como os outros — ancorado no topo, o conteúdo cola logo abaixo da
+   barra do modal em vez de deixar um vão vazio em cima. */
+.slide.slide-tour {
+  align-items: flex-start;
+}
+
+.slide-inner-tour {
+  /* Sem teto de largura: o bloco do tour precisa ocupar o slide inteiro
+     pra poder se centralizar de verdade (título/parágrafo continuam
+     estreitos por conta própria, via o max-width do .slide-body). */
+  max-width: none;
+  width: 100%;
+  padding-top: clamp(6px, 1.2vh, 14px);
+  padding-bottom: clamp(10px, 2vh, 22px);
+}
+
+/* O número gigante do slide fica bem menor só aqui, pra abrir espaço
+   vertical pro tour sem sumir de vez com a marca d'água. */
+.slide-inner-tour .slide-num {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 0;
+}
+
+.slide-inner-tour .slide-title {
+  margin-bottom: 10px;
+}
+
+/* Slide 5: texto à esquerda, tour virtual à direita (mais vertical,
+   encaixado abaixo da logo da UNINASSAU no canto). Em telas estreitas,
+   o flex-wrap empilha o tour abaixo do texto automaticamente. */
+.tour-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(20px, 3vw, 48px);
+  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+.tour-col-text {
+  flex: 1 1 380px;
+  max-width: 480px;
+}
+
+.tour-columns .slide-body {
+  max-width: 44ch;
+  margin: 0;
+}
+
+/* O tour ocupa o restante do espaço à direita do texto — largo, não um
+   quadro pequeno no canto. */
+.street-view-wrap {
+  flex: 3 1 560px;
+  max-width: 1250px;
+  margin-top: 48px;
+}
+
+/* Logo agora fica no canto superior esquerdo (pedido do Allan) — a coluna
+   de texto precisa de um respiro maior no topo pra não ficar por baixo
+   dela, e as fontes encolhem só aqui pra tudo caber sem estourar a
+   altura do slide. */
+.slide-tour .tour-col-text {
+  padding-top: clamp(6px, 1.2vh, 14px);
+}
+
+/* Logo ao lado da tag "Por que a UNINASSAU?", na mesma linha — dentro
+   do fluxo normal do texto, sem sobrepor o street view. */
+.tour-header-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.tour-logo {
+  width: 100px;
+  height: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.45));
+}
+
+.slide.slide-tour .slide-tag {
+  font-size: 0.99rem;
+  padding: 6px 15px;
+}
+
+.slide-inner-tour .slide-num {
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  margin-bottom: -0.15em;
+}
+
+.slide-inner-tour .slide-title {
+  font-size: clamp(1.9rem, 5.2vw, 3.6rem);
+  margin-bottom: var(--space-md);
+}
+
+.slide.slide-tour .slide-body {
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+/* Slide 6 — texto branco 50% maior que o padrão dos outros slides. */
+.slide.slide-beneficios-uninassau .slide-body {
+  font-size: clamp(2.14rem, 3.6vw, 2.59rem);
+}
+
+.street-view-wrap .eyebrow {
+  margin-bottom: 4px;
+}
+
+.street-view-frame {
+  margin-top: 6px;
+  width: 100%;
+  height: clamp(360px, 66vh, 660px);
+  border: 2px solid var(--yellow-500);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  overflow: hidden;
+  background: #000;
+}
+
+.street-view-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .street-view-wrap {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .street-view-frame {
+    height: 260px;
+  }
+}
 
 /* Slide de vídeo dentro do deck */
 .slide-video-frame {
